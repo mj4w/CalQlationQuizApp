@@ -1,0 +1,100 @@
+@import url('https://fonts.cdnfonts.com/css/common-pixel');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Common Pixel', sans-serif; 
+}
+
+.hero{
+    height: 100vh;
+    width: 100%;
+    background-color: #001d3d;
+    position: relative;
+}
+
+nav{
+    width: 84%;
+    margin: auto;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo{
+    width: 100px;
+    cursor: pointer;
+}
+
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: #caf0f8;
+    margin-right: 40px;
+}
+
+nav ul li a:hover{
+    color: #5cbdfd;
+}
+
+.info{
+    margin-left: 8%;
+    margin-top: 5%;
+}
+
+.info h1{
+    font-size: 30px;
+    color: #caf0f8;
+    font-family: 'Press Start 2P', sans-serif;
+    margin-bottom: 20px;
+    line-height: 40px;
+}
+
+.info p{
+    font-size: 15px;
+    color: #caf0f8;
+    line-height: 25px;
+    font-family: 'Press Start 2P', sans-serif;
+}
+
+.btn{
+    width: 150px;
+    height: 50px;
+    background: #5cbdfd;
+    padding: 0.6em 1.3em;
+    border: 3px solid black;
+    border-radius: 0.4em;
+    position: relative;
+    box-shadow: 0.1em 0.1em;
+    margin-top: 20px;
+    margin-left: 97px;
+    font-family: 'Common Pixel', sans-serif; 
+}
+
+.btn:hover{
+    cursor: pointer;
+    transform: translate(-0.05em, -0.05em);
+    box-shadow: 0.15em 0.15em;
+}
+
+.btn:active{
+    transform: translate(0.05em, 0.05em);
+    box-shadow: 0.05em 0.05em;
+}
+
+.img-box{
+    width: 37%;
+    height: 83%;
+    position: absolute;
+    bottom: 0;
+    right: 150px;
+}
+
