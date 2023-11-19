@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+@import url('https://fonts.cdnfonts.com/css/common-pixel');
+
+body {
+    color: #fff;
+}
+
+.choice-container {
+    display: flex;
+    text-align: center;
+    margin-bottom: 10px;
+    margin: 10px auto;
+    width: 50rem;
+    height: 6rem;
+    border-radius: 0.4rem;
+    border: 3px solid black;
+    box-shadow: 0.1em 0.1em;
+    background: #5cbdfd;
+    color: #000;
+    font-size: 35px;
+    font-family: 'Nova Square', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.choice-container:hover {
+    cursor: pointer;
+    transform: translate(-0.05em, -0.05em);
+    box-shadow: 0.15em 0.15em;
+}
+
+.choice-container:active{
+    transform: translate(0.05em, 0.05em);
+    box-shadow: 0.05em 0.05em;
+}
+
+.choice-prefix {
+    font-family: 'Common Pixel', sans-serif;
+    padding: 17px 10px;
+    color: #000814;
+}
+
+.choice-text {
+    padding: 12px;
+    width: 100%;
+    font-size: large;
+}
+
+.correct {
+    background: linear-gradient(32deg, rgba(11, 223, 36) 0%, rgb(41, 232, 111) 100%);
+}
+
+.incorrect {
+    background: linear-gradient(32deg, rgba(230, 29, 29, 1) 0%, rgb(224, 11, 11, 1) 100%);
+}
+
+/* Heads up Display */
+#hud {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hud-prefix {
+    text-align: center;
+    font-size: 40px;
+}
+
+.hud-main-text {
+    text-align: center;
+}
+
+#progressBar {
+    width: 28rem;
+    height: 3rem;
+    border: 0.3rem solid #aacc00;
+    margin-top: 2rem;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+#progressBarFull {
+    height: 100%;
+    background: #aacc00;
+    width: 0%;
+}
+
+@media screen and (max-width: 768px) {
+    .choice-container {
+        min-width: 40rem;
+    }
+}

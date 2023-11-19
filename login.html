@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calqlated</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="log in.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
@@ -16,13 +16,15 @@
             <h2 class="title">Sign In</h2>
             <div class="input-field">
               <i class="far fa-user"></i>
-                <input type="text" placeholder="Username">
+                <input type="email" placeholder="Username" id="un">
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Password" id="pass">  
             </div>
-            <input type="submit" value="Login" class="btn solid">
+            <button class="btn" onclick="auth()">
+              Log In
+            </button>
         </form>
         <form class="sign-up-form">
             <h2 class="title">Sign Up</h2>
@@ -49,16 +51,28 @@
         <p>Welcome to CalQlated! Let's play and have some fun!</p>
         <button class="btns transparent" id="sign-up-btn">Sign up</button>
       </div>
-      <img src="image/hello.png" class="image" alt="">
   </div>
   <div class="panel right-panel">
     <div class="content">
       <h3>ONE OF US?</h3>
-      <p>Welcome to CalQlated! Let's play and have some fun!</p>
+      <p>Welcome back! Sign in for some exciting quizzing!</p>
       <button class="btns transparent" id="sign-in-btn">Sign in</button>
     </div>
-    <img src="image/hi.png" class="image" alt="">
 </div>
   <script src="script.js"></script>
+  <script>
+        function auth(){
+      var email = document.getElementById("un").value;
+      var password = document.getElementById("pass").value;
+      if(email== "admin@gmail.com" && password== "admin123"){
+      window.location.assign("section.html");
+      alert("Log in Successfully");
+      }
+      else{
+          alert("Invalid Information");
+          return;
+      }
+    }
+  </script>
 </body>
 </html>
