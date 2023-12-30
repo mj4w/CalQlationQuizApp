@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+
+body {
+    margin: 30px;
+    padding: 0;
+    font-family: 'Nova Square', sans-serif;
+    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('/static/img/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.header {
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-button {
+    font-size: 20px;
+}
+
+.result-text {
+    font-size: 24px;
+    flex: 1; /* Occupy remaining space */
+}
+
+.section-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.section {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    margin: 0 10px;
+}
+
+.container {
+    background-color: #5cbdfd;
+    padding: 5px;
+    margin-left: 20px;
+    height: 20px;
+    width: 100px;
+    border-radius: 10px;
+    border: 2px solid #ade8f4;
+}
+
+.leaderboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.leaderboard-entry {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    border: 2px solid #ade8f4;
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 10px;
+}
+
+.entry-data {
+    flex: 1;
+    text-align: center;
+}
+
+.big-box {
+    border: 2px solid #ade8f4;
+    border-radius: 10px;
+    padding: 20px;
+    width: 78%;
+    text-align: center;
+    margin: 20px auto 0; 
+    height: 100%;
+}

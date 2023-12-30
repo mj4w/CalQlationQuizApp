@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Page</title>
+    <link rel="stylesheet" href="{% static 'css/prof/actual_quiz.css' %}">
+</head>
+<body>
+
+<div id="container">
+    <form method="POST" action="{% url 'actual-quiz' id=quiz_setting.id %}" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="textInput">Text:</label>
+            <textarea id="textInput" rows="4" cols="50" name="add_text"></textarea>
+        </div>
+    
+        <div class="form-group">
+            <label for="mathInput">Math Equation:</label>
+            <input type="text" id="mathInput" placeholder="e.g., 2 + 2" name="add_equation">
+        </div>
+    
+        <div class="form-group">
+            <label for="label-photo">Upload Photo:</label>
+            <input type="file" id="photoInput" accept="image/*" name="upload_photo">
+        </div>
+    
+        <div class="form-group choices">
+            <label for="choice1">A.</label>
+            <input type="text" id="choice1" name="option_a">
+    
+            <label for="choice2">B.</label>
+            <input type="text" id="choice2" name="option_b">
+    
+            <label for="choice3">C.</label>
+            <input type="text" id="choice3" name="option_c">
+        </div>
+        <div>
+            <label for="correct">Correct Answer</label>
+            <input type="text" id="correct" name="answer" placeholder="type the full answer here not the choices!"/>
+        </div>
+        <div>
+            <label for="solution">Put Solution Here</label>
+            <input type="text" id="solution" name="solution" placeholder="Put your solution here"/>
+        </div>
+        <button class="submit-btn" type="submit">Submit</button>
+    </form>
+    <button class="done-btn"><a href="{% url 'get-link' id=quiz_setting.id  %}">Done</a></button>
+    
+
+</div>
+
+</body>
+</html>

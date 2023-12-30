@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Score</title>
+  <link rel="stylesheet" href="{% static 'css/question/score.css' %}">
+</head>
+<body>
+
+<div id="score-container">
+  <p>Your final score is: <span id="score">{{ total_score }} </span></p>
+  <img src="{% static 'img/trophy.png' %}" alt="Trophy" id="trophy">
+  <p id="congratulations">Congratulations! You've completed the quiz!</p>
+</div>
+
+
+</body>
+</html>
+
+<!-- {% for result_details in results_details %}
+    <p>Question: {{ result_details.question_text }}</p>
+    <p>Score: {{ result_details.score }}</p>
+{% endfor %}
+
+Total Score: {{ total_score }} -->

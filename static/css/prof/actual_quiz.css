@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+
+body {
+    font-family: 'Arial', sans-serif; font-family: 'Nova Square', sans-serif;
+    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('/static/img/bg.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; 
+}
+
+#container {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 30px;
+}
+
+#photoInput {
+    width: 100%; /* Adjust the width as needed */
+    display: block;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none; /* Remove the border */
+    border-radius: 4px; /* Remove any existing border-radius */
+    color: #fff;
+    border: 2px solid #ade8f4;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+    font-size: 20px;
+}
+
+textarea,
+input[type="text"],
+input[type="file"] {
+    color: #fff;
+    border: 2px solid #ade8f4;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    background-color: #3498db;
+    border-radius: 4px;
+    outline: none;
+}
+
+.choices {
+    display: flex;
+}
+
+.choices label,
+.choices input {
+    margin-bottom: 10px;
+    margin-right: 2px;
+}
+
+button {
+    font-family: 'Nova Square', sans-serif;
+    padding: 10px;
+    width: 100px;
+    background-color: #3498db;
+    border: 2px solid #ade8f4;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 auto;
+    margin: 5px 110px;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+.math-equation input {
+        display: block;
+        color: #fff;
+        border: 2px solid #ade8f4;
+        width: 640px;
+        height: 65px;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        background: transparent;
+        border-radius: 20px;
+        outline: none;
+        font-family: 'Urbanist', sans-serif; /* Use the specified font family */
+    }
+
+    .math-equation input::placeholder {
+        color: #fff; /* Adjust placeholder text color as needed */
+        text-align: center;
+        font-style: italic;
+    }
+
+    .photo-container {
+        display: block;
+        background: transparent;
+        border-radius: 20px;
+        border: 2px solid #ade8f4;
+        height: 200px;
+        width: 635px;
+
+    }
+    
+    .photo-container img {
+        width: 200px; /* Adjust the width as needed */
+        height: auto; /* Maintain aspect ratio */
+        margin-top: 30px;
+    }

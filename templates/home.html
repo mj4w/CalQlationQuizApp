@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <title>Calqlated</title>
+  
+</head>
+<body>
+
+    <div class="hero">
+        <nav>
+            <img src="{% static 'img/logo.png' %}" class="logo">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="info">
+            <h1>Welcome,<br>Math Wizard!</h1>
+            <p>In math's game of numbers 
+            <br>and strategy, every equation 
+            <br>is a challenge, 
+            <br>every solution is a key to victory.</p>
+            <button type="button" class="btnLogin-popup">
+                Get Started !
+            </button>
+        </div>
+        <div class="img-box">
+            <img src="{% static 'img/wizard.png' %}" class="object" data-value="1">
+        </div>
+        <div class="container">
+            <div class="main-box login">
+                <h1>Log in</h1>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="input-box">
+                        <span class="icon"><i class="far fa-envelope"></i></span>
+                        {{form_login.username}}
+                        <label>Email</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class="fas fa-lock"></i></span>
+                        {{form_login.password}}
+                        <label>Password</label>
+                    </div>
+                    <div class="check">
+                        <label><input type="checkbox">Remember me</label>
+                        <a href="{% url 'password_reset' %}">Forget Password</a>
+                    </div>
+                    <button type="submit" class="main-btn" name="login">Log in</button>
+                    <div class="register">
+                        <p>You don't have an account?<a href="#" class="register-link">Register here!</a></p>
+                    </div>
+                </form>
+            </div>
+            <div class="main-box register">
+                <h1>Registration</h1>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="input-box">
+                        <span class="icon"><i class="far fa-envelope"></i></span>
+                        {{form_register.email}}
+                        <label>Email</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class="fas fa-lock"></i></span>
+                        {{form_register.password1}}
+                        <label>Password</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class="fas fa-lock"></i></span>
+                        {{form_register.password2}}
+                        <label>Re-Type Password</label>
+                    </div>
+                    <div class="check">
+                        <label><input type="checkbox">I accept all terms & conditions</label>
+                    </div>
+                    <button type="submit" class="main-btn" name="register">Register now</button>
+                    <div class="register">
+                        <p>Already have an account?<a href="#" class="login-link">Login here!</a></p>
+                    </div>
+                </form>
+            </div>
+
+            <span class="close-icon">
+                <i class="fa-solid fa-xmark"></i>
+            </span>
+        </div>
+        <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+        <!-- JavaScript -->
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <script>
+            {% for message in messages %}
+                alertify.set('notifier', 'position', 'top-right');
+                {% if message.tags == 'error' %}
+                    alertify.error('{{ message }}');
+                {% else %}
+                    alertify.success('{{ message }}');
+                {% endif %}
+            {% endfor %}
+        </script>        
+    </div>
+</body>
+</html>

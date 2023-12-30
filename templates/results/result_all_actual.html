@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/result/resultAll.css' %}">
+                                    
+    <title>Leaderboards</title>
+</head>
+<body>
+
+    <div class="header">
+        <div class="back-button">
+            <a href="{% url 'professor-home' %}" style="color:white;">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+
+        </div>
+        <div class="result-text">RESULT</div>
+    </div>
+
+    {% for section_select_data, results_list in grouped_results.items %}
+    <div class="section-container">
+        <div class="section">
+            <i class="far fa-calendar-alt"></i>
+            <span> Date Posted</span>
+            <div class="container">
+                {{ section_select_data.1|date:"Y-m-d" }}
+            </div>
+        </div>
+        <!-- <div class="section">
+            <i class="far fa-clock"></i>
+            <span> Time Posted</span>
+            <div class="container">
+                {{ section_select_data.1|time:"H:i a" }}
+            </div>
+        </div> -->
+        <div class="section">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span> Class Section</span>
+            <div class="container">
+                {{ section_select_data.0 }}
+            </div>
+        </div>
+    </div>
+
+    <div class="leaderboard">
+        <!-- Leaderboard content goes here -->
+        <div class="leaderboard-entry">
+            <span class="entry-data"><strong>Rank</strong></span>
+            <span class="entry-data"><strong>Email</strong></span>
+            <span class="entry-data"><strong>Section</strong></span>
+            <span class="entry-data"><strong>Score</strong></span>
+            <span class="entry-data"><strong>Time Started</strong></span>
+            <span class="entry-data"><strong>Time Finished</strong></span>
+        </div>
+        {% for result in results_list %}
+        <div class="leaderboard-entry">
+            <span class="entry-data">{{ forloop.counter }}</span>
+            <span class="entry-data">{{ result.result.user }}</span>
+            {% if result.result.quiz_setting.section %}
+            <span class="entry-data">{{ result.result.quiz_setting.section }}</span>
+            {% else %}
+            <span class="entry-data">No section Provided</span>
+            {% endif %}
+            <span class="entry-data">{{ result.result.total_score }}</span>
+      
+            <span class="entry-data">{{ result.result.quiz_setting.start_time|time:"H:i a" }}</span>
+            <span class="entry-data">{{ result.result.time_finished|time:"H:i a" }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+</body>
+</html>
