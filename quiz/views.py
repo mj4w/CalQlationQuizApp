@@ -75,8 +75,10 @@ def home(request):
                     if user is not None:
                         login(request, user)
                         if 'bulsu.edu.ph' in user.email and any(char.isdigit() for char in user.email):
+                            messages.success(request,'You have successfully logged in')
                             return redirect('student-home')
                         elif 'bulsu.edu.ph' in user.email:
+                            messages.success(request,'You have successfully logged in')
                             return redirect('professor-home')
                         messages.error(request, 'Login Error: Your Email is not a bulsu acc.')
                         return redirect('home')

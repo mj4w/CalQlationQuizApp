@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'css/prof/prof_start.css' %}">
+  <!-- CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+  <!-- Default theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
   <title>Calqlated</title>
 </head>
 <body>
@@ -21,6 +25,18 @@
     <a href="{% url 'result-all' %}"><button class="btn">Result</button></a>
   </div>
 </body>
+   <!-- JavaScript -->
+   <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+   <script>
+       {% for message in messages %}
+           alertify.set('notifier', 'position', 'top-right');
+           {% if message.tags == 'error' %}
+               alertify.error('{{ message }}');
+           {% else %}
+               alertify.success('{{ message }}');
+           {% endif %}
+       {% endfor %}
+   </script>        
 </html>
 <!-- <a href="{% url 'create-quiz' %}">Create a Quiz</a>
 <a href="">Results</a> -->
