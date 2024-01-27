@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/prof/link_quiz.css' %}">
+    <title>Quiz Link</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var linkElement = document.getElementById('quiz-link');
+            linkElement.addEventListener('click', function (event) {
+                event.preventDefault();  // Prevent the default link behavior
+                copyToClipboard(linkElement);
+            });
+        });
+
+        function copyToClipboard(linkElement) {
+            var tempInput = document.createElement('input');
+            tempInput.value = linkElement.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Update the link box content
+            linkElement.innerHTML = 'Copied! Goodluck!';
+
+            // Change the icon
+            var iconElement = linkElement.querySelector('.fa-link');
+            iconElement.classList.remove('fa-link');
+            iconElement.classList.add('fa-check');
+
+            // Show an alert (optional)
+            alert('Link copied to clipboard!');
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="header-text"><a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="" style="width:40%; max-width:100%;"/></a></h1>
+        <p class="text-on-top">YOU HAVE SUCCESSFULLY CREATED A QUIZ, COPY THE LINK HERE:</p>
+        <div class="link-box">
+            <a id="quiz-link" href="{% url 'link-actual-quiz' id=quiz_setting.id %}" class="icon-link">http://127.0.0.1:8000/link-quiz/{{quiz_setting.id}}/<i class="fa-solid fa-link"></i></a>
+        </div>
+    </div>
+
+</body>
+</html>

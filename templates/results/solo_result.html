@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Score</title>
+  <link rel="stylesheet" href="{% static 'css/question/score.css' %}">
+</head>
+<body>
+
+<div id="score-container">
+    <p>Your final score is: <span id="score">{{ total_score }} </span></p>
+    <img src="{% static 'img/trophy.png' %}" alt="Trophy" id="trophy">
+    <p id="congratulations">Congratulations! You've completed the quiz!</p>
+    <div>
+        <button onclick="openModal('correctAnswerModal')">Show Correct Answer</button>
+        <button onclick="openModal('solutionModal')">Show Solution</button>
+    </div>
+</div>
+
+<!-- Correct Answer Modal -->
+<div id="correctAnswerModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('correctAnswerModal')">&times;</span>
+        <header>
+            <h1 class="leaderboard-text">Correct Answer</h1>
+        </header>
+        <div class="leaderboard">
+            <!-- Leaderboard content goes here -->
+            <div class="leaderboard-entry">
+                <span class="entry-data"><strong>#</strong></span>
+                <span class="entry-data"><strong>Question</strong></span>
+                <span class="entry-data"><strong>Your Answer</strong></span>
+                <span class="entry-data"><strong>Correct Answer</strong></span>
+            </div>
+            {% for result_detail in results_details %}
+            <div class="leaderboard-entry">
+                <span class="entry-data">{{forloop.counter}} </span>
+                <span class="entry-data">{{result_detail.question_text}}</span>
+                {% if result_detail.user_answer == result_detail.correct_answer %}
+                <span style="color: green;" class="entry-data">{{result_detail.user_answer}}</span>
+                {% else %}
+                <span style="color: red;" class="entry-data">{{result_detail.user_answer}}</span>
+                {% endif %}
+                <span class="entry-data">{{result_detail.correct_answer}}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Solution Modal -->
+<div id="solutionModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('solutionModal')">&times;</span>
+        <header>
+            <h1 class="leaderboard-text">Correct Answer</h1>
+        </header>
+        <div class="leaderboard">
+            <!-- Leaderboard content goes here -->
+            <div class="leaderboard-entry">
+                <span class="entry-data"><strong>#</strong></span>
+                <span class="entry-data"><strong>Question</strong></span>
+                <span class="entry-data"><strong>Solution</strong></span>
+            </div>
+            {% for result_detail in results_details %}
+            <div class="leaderboard-entry">
+                <span class="entry-data">{{forloop.counter}} </span>
+                <span class="entry-data">{{result_detail.question_text}}</span>
+                <span class="entry-data">{{result_detail.solution}}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    // Function to open a modal
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
+    
+    // Function to close a modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+    
+    // Close modal if user clicks outside the modal content
+    window.onclick = function (event) {
+        if (event.target.classList.contains('modal')) {
+        event.target.style.display = "none";
+        }
+    };
+    
+    </script>
+</html>
+
+<!-- {% for result_details in results_details %}
+    <p>Question: {{ result_details.question_text }}</p>
+    <p>Score: {{ result_details.score }}</p>
+{% endfor %}
+
+Total Score: {{ total_score }} -->

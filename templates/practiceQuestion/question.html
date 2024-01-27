@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrolled Quiz</title>
+  <link rel="stylesheet" href="{% static 'css/question/question.css' %}">
+</head>
+<body>
+
+<div id="quiz-container">
+  {% if practice_mode_instance.questions.all %}
+  <form method="POST">
+    {% csrf_token %}
+    {% for question in shuffled_questions %}
+      <div class="question-container" id="question{{ question.id }}">
+        <div class="question">
+          <p>{{ question.question_text }}</p>
+        </div>
+        <div class="choices">
+          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_a }}"  id="q{{ question.id }}a"><label for="q{{ question.id }}a">{{ question.option_a }}</label><br>
+          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_b }}" id="q{{ question.id }}b"><label for="q{{ question.id }}b">{{ question.option_b }}</label><br>
+          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_c }}" id="q{{ question.id }}c"><label for="q{{ question.id }}c">{{ question.option_c }}</label><br>
+        </div>
+      </div>
+    {% endfor %}
+    <button>Submit</button>
+  </form>
+  {% else %}
+    <p>No questions available for the selected criteria.</p>
+  {% endif %}
+</div>
+
+</body>
+</html>
+
+<!-- <h1>Practice Mode</h1>
+
+<h2>Selected Practice Mode:</h2>
+<p>Topic: {{ practice_mode_instance.topic }}</p>
+<p>Difficulty: {{ practice_mode_instance.difficulty }}</p>
+<p>Number of Questions: {{ practice_mode_instance.num_questions }}</p>
+
+{% if practice_mode_instance.questions.all %}
+  <h2>Associated Questions:</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {% for question in shuffled_questions %}
+      <ul>
+        <li>{{ question.question_text }}</li>
+        {{ question.hint_question }}
+        <li>
+          <label for="q{{ question.id }}a"><input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_a }}"> {{ question.option_a }}</label>
+        </li>
+        <li>
+          <label for="q{{ question.id }}b"><input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_b }}"> {{ question.option_b }}</label>
+        </li>
+        <li>
+          <label for="q{{ question.id }}c"><input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_c }}"> {{ question.option_c }}</label>
+        </li>
+        <li>
+          <label for="q{{ question.id }}d"><input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_d }}"> {{ question.option_d }}</label>
+        </li>
+      </ul>
+      <br>
+  
+    {% endfor %}
+  
+    <button type="submit">Submit Answer</button>
+  </form>
+{% else %}
+  <p>No questions available for the selected criteria.</p>
+{% endif %} --> 

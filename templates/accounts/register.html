@@ -1,0 +1,12 @@
+<h1>Register</h1>
+
+<form action="{% url 'register' %}" method="post">
+  {% csrf_token %}
+  <h1>Email</h1>
+  {{form.email}}
+  <h1>Password</h1>
+  {{form.password1}}
+  <h1>Re-enter password</h1>
+  {{form.password2}}
+  <button type="submit" id="submit">Register</button>
+</form>

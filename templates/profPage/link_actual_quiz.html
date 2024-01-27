@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Answers</title>
+    <link rel="stylesheet" href="{% static 'css/question/question_actual.css' %}">
+</head>
+<body>
+    <div id="quiz-container">
+        {% if answers %}
+        <form method="POST">
+            {% csrf_token %}
+            <div id="timer">
+                <div id="timer-bar"></div>
+            </div>
+            {% for answer in answers %}
+            <div class="question-container" id="question{{ question.id }}">
+                <div class="question">
+                    <p>{{ answer.add_text }}: </p>
+                    <p>{{ answer.add_equation }}</p>
+
+                </div>                  
+                {% if answer.upload_photo %}
+                <div class="photo-container">
+                <img src="{{ answer.upload_photo.url }}" alt="Answer Photo">
+                </div>
+                {% endif %}
+                <!-- {% if answer.upload_photo %}
+                    <img src="{{ answer.upload_photo.url }}" alt="Uploaded Photo">
+                {% endif %} -->
+                <div class="choices">
+                <input type="radio" name="user_answer_{{ answer.id }}" value="{{ answer.option_a }}"  id="q{{ answer.id }}a"><label for="q{{ answer.id }}a">{{ answer.option_a }}</label><br>
+                <input type="radio" name="user_answer_{{ answer.id }}" value="{{ answer.option_b }}" id="q{{ answer.id }}b"><label for="q{{ answer.id }}b">{{ answer.option_b }}</label><br>
+                <input type="radio" name="user_answer_{{ answer.id }}" value="{{ answer.option_c }}" id="q{{ answer.id }}c"><label for="q{{ answer.id }}c">{{ answer.option_c }}</label><br>
+                </div>
+            
+            <hr style="width: 100%;"> 
+            </div>
+ 
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+        {% else %}
+            <p>No questions available for the selected criteria.</p>
+        {% endif %}
+    </div>
+    
+<!-- <div id="container">
+    <h2>Answers for Quiz: {{ quiz_setting.title }}</h2>
+    URL
+    <p>link-quiz/{{quiz_setting.id}}</p>
+    {% for answer in answers %}
+        <div class="answer">
+            <p>{{ answer.add_text }}</p>
+            <p>{{ answer.add_equation }}</p>
+            {% if answer.upload_photo %}
+                <img src="{{ answer.upload_photo.url }}" alt="Uploaded Photo">
+            {% endif %}
+            <p>Option A: {{ answer.option_a }}</p>
+            <p>Option B: {{ answer.option_b }}</p>
+            <p>Option C: {{ answer.option_c }}</p>
+            <p>Correct Answer: {{ answer.answer }}</p>
+        </div>
+    {% endfor %}
+
+    <a href="">Back to Quiz Results</a>
+</div> -->
+<script>
+    // Set the total time for the quiz in seconds
+    var totalTime = {{ time_limit }}; // Replace with the correct variable from Django
+    console.log(totalTime);
+
+    // Variable to store the remaining time
+    var timeRemaining = totalTime;
+
+    // Function to start the timer
+    function startTimer() {
+        var timerBar = document.getElementById('timer-bar');
+
+        // Update the timer every second
+        var timerInterval = setInterval(function () {
+            timeRemaining -= 1; // Decrease by 1 second
+
+            // Update the timer bar width
+            var percentageRemaining = (timeRemaining / totalTime) * 100;
+            var timerWidth = 100 - percentageRemaining; // Adjust to make the bar move from right to left
+            timerBar.style.width = timerWidth + '%';
+
+            console.log("timeRemaining:", timeRemaining); // Debugging statement
+
+            // Check if the time is up
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+
+                console.log("Time's up! Redirecting..."); // Debugging statement
+
+                // Redirect to another page after the timer ends
+                window.location.href = '/'; // Replace with the actual URL
+
+                // You can also submit the quiz or perform other actions if needed
+                // submitQuiz();
+            }
+        }, 1000); // Update every 1000 milliseconds (1 second)
+    }
+
+    // Call the startTimer function when the page loads
+    startTimer();
+</script>
+</body>
+</html>

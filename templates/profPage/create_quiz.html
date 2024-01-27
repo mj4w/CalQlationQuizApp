@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/prof/create_quiz.css' %}">
+    <title>Calqlated</title>
+</head>
+<body>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="quiz-setup-container">
+            <h1>Setup your Quiz</h1>
+            
+            <label for="quizDate">Select Date:</label>
+            <input type="date" id="quizDate" name="date" required>
+    
+            <label for="startTime">Start Time:</label>
+            <input type="time" id="startTime" name="start_time" required>
+    
+            <label for="endTime">End Time:</label>
+            <input type="time" id="endTime" name="end_time" required>
+
+            <label for="section">Class Section:</label>
+            <input type="text" id="section" name="section" required>
+            <label class="switch-container">
+                Show Correct Answer:
+                <label class="switch">
+                    <input type="checkbox" id="showCorrectAnswer" name="show_correct_answer">
+                    <span class="slider"></span>
+                </label>
+            </label>
+    
+            <label class="switch-container">
+                Show Solution After Quiz:
+                <label class="switch">
+                    <input type="checkbox" id="showSolution" name="show_solution">
+                    <span class="slider"></span>
+                </label>
+            </label>
+    
+            <label for="questionTimer">Timer (seconds):</label>
+            <input type="number" id="questionTimer" min="1" value="10" name="question_timer" required>
+    
+            <a href="{% url 'professor-home' %}" style="color: white;">Back</a>
+            <button type="submit">Next</button>
+        </div>
+    </form>
+</body>
+</html>

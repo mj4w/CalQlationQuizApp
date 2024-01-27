@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/practiceMode/practiceMode.css' %}">
+  <title>Calqlated</title>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+        <span class="logo-text">CALQLATED</span>
+    </div>
+  </header>
+  <div id="solo">
+    <p>Solo</p>
+  </div>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="quiz-settings">
+      <div class="section">
+          <label>Level of Difficulty</label>
+          {{form.difficulty}}
+          <div>
+            <i class="fa-solid fa-caret-down"></i>
+          </div>
+      </div>
+      <div class="section">
+          <label>Number of Questions</label>
+          {{form.num_questions}}
+      </div>
+      <div class="section">
+        <button id="startButton" type="submit">Start</button>
+      </div>
+    </div>
+  </form>
+
+</body>
+</html>
+
+<!-- <h1>Practice Mode</h1>
+
+<form method="post" action="{% url 'solo-student' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Start Practice</button>
+</form> -->

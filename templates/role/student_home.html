@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/practiceMode/practice.css' %}">
+  <!-- CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+  <!-- Default theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+  <title>Calqlated</title>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+        <a href="/index.html"><span class="logo-text">CALQLATED</span></a>
+    </div>
+  </header>
+  <div id="practice-mode" class="container">
+    <p>Practice Mode</p>
+  </div>
+  <div class="buttons-container">
+    <a href="{% url 'solo-student' %}"><button class="btn">Solo</button></a>
+    <a href="{% url 'group-student' %}"><button class="btn">Group</button></a>
+  </div>
+</body>
+   <!-- JavaScript -->
+   <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+   <script>
+       {% for message in messages %}
+           alertify.set('notifier', 'position', 'top-right');
+           {% if message.tags == 'error' %}
+               alertify.error('{{ message }}');
+           {% else %}
+               alertify.success('{{ message }}');
+           {% endif %}
+       {% endfor %}
+   </script>        
+</html>
+<!-- <a href="{% url 'solo-student' %}">SOLO</a>
+<a href="{% url 'group-student' %}">GROUP</a> -->

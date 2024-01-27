@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Make sure the body takes the full height of the viewport */
+    font-family: 'Nova Square', sans-serif;
+    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('/static/img/bg.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container {
+    text-align: center;
+}
+
+.header-text {
+    color: #fff;
+    font-size: 24px;
+    margin: 90px 0; /* Adjusted margin for spacing from the top */
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.text-on-top {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.link-box {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative; /* Added for positioning the icon link */
+    width: 400px;
+    height: 50px;
+    background-color: #3498db;
+    text-align: center;
+    line-height: 50px; /* Adjusted line-height to match height */
+    border-radius: 30px;
+}
+
+.icon-link {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.link-box:after {
+    content: "";
+    display: table;
+    clear: both;
+}
