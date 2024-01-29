@@ -4,7 +4,7 @@
   {% load static %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scrolled Quiz</title>
+  <title>Solo Quiz</title>
   <link rel="stylesheet" href="{% static 'css/question/question.css' %}">
 </head>
 <body>
@@ -16,7 +16,10 @@
     {% for question in shuffled_questions %}
       <div class="question-container" id="question{{ question.id }}">
         <div class="question">
+          {% autoescape off %}
           <p>{{ question.question_text }}</p>
+          {% endautoescape %}
+
         </div>
         <div class="choices">
           <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_a }}"  id="q{{ question.id }}a"><label for="q{{ question.id }}a">{{ question.option_a }}</label><br>
