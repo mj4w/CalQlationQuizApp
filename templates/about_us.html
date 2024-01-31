@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/about_us.css' %}">
+    <title>About Us</title>
+</head>
+<body>
+
+<div class="about-container">
+    <div class="team-container">
+        <h2>Meet Our Team</h2>
+        <p>CalQ-lated was created by a team of enthusiastic math and computer science students from Bulacan State University. We share a passion for math, programming, and a common goal of transforming calculus education.</p>
+    </div>
+
+    <a href="{% url 'home' %}" class="back-button"><i class="fa-solid fa-right-from-bracket"></i></a>
+    
+    <div class="image-container">
+        <div class="team-slider">
+            <img src="{% static 'img/pic1.jpg' %}" alt="Team Member 1">
+            <img src="{% static 'img/pic2.jpg' %}" alt="Team Member 2">
+        </div>
+        <div class="dots-container">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+    </div>
+</div>
+
+<div class="team-icons">
+    <div class="icon" data-name="John">
+        <img src="{% static 'img/1.png' %}" alt="">
+        <span class="icon-name">Jonah</span>
+        <div class="card">
+            <p>Jonah Mae Santos - Bachelor of Science in Mathematics with specialization in Computer Science <br><br>
+            Jonah brings her educational insight to CalQ-lated, crafting content that resonates with students and aligns with academic goals. Her strategic approach ensures that the platform meets the diverse needs of both students and professors.</p>
+        </div>
+    </div>
+    
+    <div class="icon" data-name="Jane">
+        <img src="{% static 'img/2.PNG' %}" alt="">
+        <span class="icon-name">Rollene</span>
+        <div class="card">
+            <p>Rollene Anne Mariano - Bachelor of Science in Mathematics with specialization in Computer Science <br> <br>
+            Rollene plays a crucial role in ensuring the reliability of CalQ-lated. Through rigorous testing and quality assurance measures, she guarantees a seamless and error-free experience for users, maintaining the platform’s integrity.</p>
+        </div>
+    </div>
+    
+    <div class="icon" data-name="Alex">
+        <img src="{% static 'img/3.jpg' %}" alt="">
+        <span class="icon-name">Andriane</span>
+        <div class="card">
+            <p>Andriane Texon - Bachelor of Science in Mathematics with specialization in Computer Science <br><br>
+                Andriane’s keen eye for design and commitment to creating an optimal user experience ensures that CalQ-lated is not only functional but also visually engaging. Her creativity enhances the platform’s accessibility.</p>
+        </div>
+    </div>
+    
+    <div class="icon" data-name="Emily">
+        <img src="{% static 'img/4.jpg' %}" alt="">
+        <span class="icon-name">Adam</span>
+        <div class="card">
+            <p>Adam Louis Garcia - Bachelor of Science in Mathematics with specialization in Computer Science <br> <br>
+            Adam, with his visionary leadership, spearheads the development of CalQ-lated. His passion for mathematics and proficiency in computer science form the foundation of our innovative platform.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Calqlated. All rights reserved.</p>
+</footer>
+
+<script src="{% static 'js/about_us.js' %}"></script>   
+
+</body>
+</html>

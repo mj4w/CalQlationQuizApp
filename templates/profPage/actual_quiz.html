@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/prof/actual_quiz.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive-static.css" />
 </head>
 <body>
 
@@ -13,37 +15,43 @@
     <form method="POST" action="{% url 'actual-quiz' id=quiz_setting.id %}" enctype="multipart/form-data" >
         {% csrf_token %}
         <div class="form-group">
-            <label for="textInput">Text:</label>
-            <textarea id="textInput" rows="4" cols="50" name="add_text"></textarea>
+            <label for="textInput">Question Text:</label>
+            <textarea id="textInput" rows="4" cols="50" name="add_text" required></textarea>
         </div>
     
         <div class="form-group">
-            <label for="mathInput">Math Equation:</label>
-            <input type="text" id="mathInput" placeholder="e.g., 2 + 2" name="add_equation">
+            <label for="mathInput">Math Equation Generator:</label>
+            <math-field id="formula" style="display: block;">
+            </math-field>                
+            <textarea class="output" id="latex" autocapitalize="off" autocomplete="off"
+            autocorrect="off" style="display: none;" spellcheck="false" name="add_equation" required></textarea>
+
         </div>
     
         <div class="form-group">
-            <label for="label-photo">Upload Photo:</label>
-            <input type="file" id="photoInput" accept="image/*" name="upload_photo">
+            <input type="file" id="photoInput" accept="image/*" name="upload_photo" class="hidden-upload-input">
+            <label for="photoInput" class="custom-upload-label">
+                <i class="fas fa-plus"></i>
+            </label>
         </div>
     
         <div class="form-group choices">
             <label for="choice1">A.</label>
-            <input type="text" id="choice1" name="option_a">
+            <input type="text" id="choice1" name="option_a" required>
     
             <label for="choice2">B.</label>
-            <input type="text" id="choice2" name="option_b">
+            <input type="text" id="choice2" name="option_b" required>
     
             <label for="choice3">C.</label>
-            <input type="text" id="choice3" name="option_c">
+            <input type="text" id="choice3" name="option_c" required>
         </div>
         <div>
             <label for="correct">Correct Answer</label>
-            <input type="text" id="correct" name="answer" placeholder="type the full answer here not the choices!"/>
+            <input type="text" id="correct" name="answer" placeholder="type the full answer here not the choices!" required/>
         </div>
         <div>
             <label for="solution">Put Solution Here</label>
-            <input type="text" id="solution" name="solution" placeholder="Put your solution here"/>
+            <input type="text" id="solution" name="solution" placeholder="Put your solution here" required/>
         </div>
         <button class="submit-btn" type="submit">Submit</button>
     </form>
@@ -51,6 +59,45 @@
     
 
 </div>
+<script type="module">
+    import { convertLatexToMarkup }
+      from 'https://unpkg.com/mathlive/dist/mathlive.min.mjs';
+  
+    function  replaceSpaces(input) {
+      if (input == null) return "";
+      var output = input.toString().replace(/ /g,"\\; ");
+      return "$$" + output + "$$";
+    }
+  
+    var elements = document.getElementsByClassName("mathlive");
+    for (let i = 0; i < elements.length; i++) {
+      var el = elements[i];
+      el.innerHTML = convertLatexToMarkup(
+        replaceSpaces(el.innerText), {
+          letterShapeStyle: 'iso',
+                 mathstyle: 'textstyle'
+        }
+      );
+    }
+    
+</script>
+<script>
+    const mf = document.getElementById("formula");
+    const latex = document.getElementById("latex");
 
+    mf.addEventListener("input",(ev) => latex.value = mf.value);
+
+    latex.value = mf.value;
+
+    // Listen for changes in the "latex" text field, 
+    // and reflect its value in the mathfield.
+
+    latex.addEventListener("input", (ev) => 
+        mf.setValue(
+        ev.target.value, 
+        {silenceNotifications: true}
+        )
+    );
+</script>
 </body>
 </html>

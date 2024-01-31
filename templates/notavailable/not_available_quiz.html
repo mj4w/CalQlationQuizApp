@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calqlated</title>
+    <link rel="stylesheet" href="{% static 'css/not_available/not.css' %}">
+</head>
+<style>
+    .alert {
+      padding: 5px;
+      background-color: #6e6e6b;
+      color: white;
+      border-radius: 10px;
+      width: 100%;
+    }
+    
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      float: right;
+      font-size: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .closebtn:hover {
+      color: black;
+    }
+    </style>
+<body>
+    <div class="container">
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <p style="color: rgb(255, 255, 255);"><strong>Note! </strong>Refresh the page if Quiz Started!</p> 
+
+        </div>
+        <p class="message">Quiz are not Available.</p>
+        <p style="font-size: 20px; padding:0; margin:0; color:white;">Date: {{quiz_setting.select_data}}</p>
+        <p style="font-size: 20px; padding:0; margin:0; color:white;">Time: {{quiz_setting.start_time}} - {{quiz_setting.end_time}}</p>
+        <p style="font-size: 20px; padding:0; margin:0; color:white;">Section: {{quiz_setting.section}}</p>
+    </div>
+</body>
+</html>

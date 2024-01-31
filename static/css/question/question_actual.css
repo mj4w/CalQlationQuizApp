@@ -163,3 +163,54 @@ body {
   display: block;
   margin: 0 auto; /* Center the image horizontally */
 }
+
+@media only screen and (max-width: 768px) {
+
+  #quiz-container {
+  max-width: 90%;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  }
+
+  .question {
+    width: 90%;
+    height: auto;
+    font-size: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+
+  .choices label {
+    width: 94%;
+    height: auto;
+    font-size: 15px;
+    padding: 10px; 
+  }
+
+  .math-equation input {
+    width: 103%;
+    height: auto;
+    font-size: 10px;
+    padding: 10px; 
+  }
+
+  .photo-container {
+    width: 92%; 
+    height: auto;
+    font-size: 15px;
+    padding: 10px; 
+  }
+
+  .photo-container img {
+    width: 150px; 
+    margin-top: 10px;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 14px;
+  }
+}

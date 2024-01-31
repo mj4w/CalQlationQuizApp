@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from operator import itemgetter
 from itertools import groupby
+from django.views.decorators.csrf import csrf_exempt
 
 # professor & student
 # def register_view(request):
@@ -49,6 +50,7 @@ from itertools import groupby
 #         form = LoginForm()
         
 #     return render(request,'accounts/login.html',{'form':form})
+@csrf_exempt
 def home(request):
     if "register" in request.POST:
         try:
@@ -107,6 +109,7 @@ def professor_home(request):
 
 # practice quiz student
 
+@csrf_exempt
 @login_required(login_url='home')
 def student_solo(request):
     if request.method == 'POST':
@@ -130,7 +133,7 @@ def student_solo(request):
     else:
         form = SoloPracticeModeForm()
     return render(request, 'practiceMode/student_solo.html', {'form': form})
-
+@csrf_exempt
 @login_required(login_url='home')
 def student_group(request):
     if request.method == 'POST':
@@ -156,7 +159,7 @@ def student_group(request):
         
     return render(request,'practiceMode/student_group.html', {'form': form})
 
-
+@csrf_exempt
 @login_required(login_url='home')
 def practice_question_solo(request, practice_mode_instance_id):
     practice_mode_instance = SoloPracticeMode.objects.get(id=practice_mode_instance_id)
@@ -167,7 +170,7 @@ def practice_question_solo(request, practice_mode_instance_id):
         score = 0
         for question in questions:
             user_answer_key = f'user_answer_{question.id}'
-            user_answer = request.POST.get(user_answer_key)
+            user_answer = request.POST.get(user_answer_key,'')
             # Check if the user's answer is correct
             if user_answer == question.answer:
                 score += 1
@@ -202,6 +205,7 @@ def solo_result(request, practice_mode_instance_id):
 
         result_details = {
             'question_text': question.question_text,
+            'question_formula': question.question_formula,
             'score': latest_result.score,
             'solution':question.solution_here,
             'user_answer':latest_result.user_answer,
@@ -212,20 +216,19 @@ def solo_result(request, practice_mode_instance_id):
         results_details.append(result_details)
    
     return render(request, 'results/solo_result.html', {'results_details': results_details, 'total_score': total_score})
-
+@csrf_exempt
 @login_required(login_url='home')
 def practice_question_group(request,practice_mode_instance_id):
     practice_mode_instance = PracticeMode.objects.get(id=practice_mode_instance_id)
     time_limit = practice_mode_instance.num_questions * 30
     questions = list(practice_mode_instance.questions.all())
     random.shuffle(questions)
-    
     if request.method == 'POST':
         score = 0
         result_sum = 0
         for question in questions:
             user_answer_key = f'user_answer_{question.id}'
-            user_answer = request.POST.get(user_answer_key)
+            user_answer = request.POST.get(user_answer_key,'')
             # Check if the user's answer is correct
             if user_answer == question.answer:
                 score += 1
@@ -264,7 +267,12 @@ def resultP(request, practice_mode_instance_id):
 
         result_details = {
             'question_text': question.question_text,
+            'question_formula': question.question_formula,
             'score': latest_result.score,
+            'solution':question.solution_here,
+            'user_answer':latest_result.user_answer,
+            'correct_answer':latest_result.question.answer
+            
         }
         total_score += latest_result.score
         results_details.append(result_details)
@@ -282,6 +290,7 @@ def resultP(request, practice_mode_instance_id):
 
 
 # prof side
+@csrf_exempt
 @login_required(login_url='home')
 def create_quiz(request):
     if request.method == 'POST':
@@ -310,6 +319,7 @@ def create_quiz(request):
     
     return render(request, 'profPage/create_quiz.html')
 
+@csrf_exempt
 @login_required(login_url='home')
 def actual_quiz(request, id):
     quiz_setting = QuizSetting.objects.get(pk=id)
@@ -383,7 +393,7 @@ def link_actual_quiz(request, id):
             result_sum = 0
             for answer in answers:
                 user_answer_key = f"user_answer_{answer.id}"
-                user_answer = request.POST.get(user_answer_key)
+                user_answer = request.POST.get(user_answer_key,'')
                 print(user_answer)
                 if user_answer == answer.answer:
                     score += 1
@@ -398,8 +408,7 @@ def link_actual_quiz(request, id):
             return redirect('result-actual', id=id)
         return render(request, 'profPage/link_actual_quiz.html', {'quiz_setting': quiz_setting, 'answers': answers, 'time_limit': time_limit})
     else:
-        # Render a page indicating that the quiz is not available
-        return HttpResponse("Sorry, the quiz is not currently available.")
+        return redirect('quiz-not-available', id=id)
  
 @login_required(login_url='home')   
 def result_actual_quiz(request,id):
@@ -419,6 +428,7 @@ def result_actual_quiz(request,id):
         
         result_details = {
             'add_text': question.add_text,
+            'add_equation':question.add_equation,
             'solution':question.add_solution_here,
             'score': latest_result.score,
             'user_answer':latest_result.user_answer,
@@ -462,3 +472,26 @@ def result_all_actual(request):
     for section_select_data, group in groupby(latest_results_list, key=lambda x: (x['result'].quiz_setting.section, x['result'].quiz_setting.select_data)):
         grouped_results[section_select_data] = list(group)
     return render(request, 'results/result_all_actual.html', {'grouped_results': grouped_results})
+
+
+def not_available(request,id):
+    quiz_setting = QuizSetting.objects.get(pk=id)
+    current_datetime = timezone.localtime(timezone.now(), pytz.timezone('Asia/Manila'))
+
+    # Combine the date and time, and make them timezone aware
+    quiz_start_datetime = timezone.make_aware(
+        datetime.combine(quiz_setting.select_data, quiz_setting.start_time),
+        timezone.get_current_timezone()
+    )
+    quiz_end_datetime = timezone.make_aware(
+        datetime.combine(quiz_setting.select_data, quiz_setting.end_time),
+        timezone.get_current_timezone()
+    )
+    if quiz_start_datetime <= current_datetime <= quiz_end_datetime:
+        return redirect('link-actual-quiz', id=id)
+    return render(request,'notavailable/not_available_quiz.html',{'quiz_setting': quiz_setting})
+
+def about_us(request):
+    return render(request,'about_us.html')
+def contact_us(request):
+    return render(request,'contact_us.html')

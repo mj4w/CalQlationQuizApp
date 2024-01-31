@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@200&display=swap');
 
 body {
     font-family: 'Arial', sans-serif; font-family: 'Nova Square', sans-serif;
-    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('/static/img/bg.jpg');
+    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('./../../img/bg.jpg');
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -11,6 +12,16 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh; 
+}
+
+.arrow-icon a{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1000;
 }
 
 #container {
@@ -23,14 +34,38 @@ body {
 }
 
 #photoInput {
-    width: 100%; /* Adjust the width as needed */
-    display: block;
+    display: none;
+}
+
+.custom-upload-label {
+    display: inline-block;
     padding: 10px;
-    box-sizing: border-box;
-    border: none; /* Remove the border */
-    border-radius: 4px; /* Remove any existing border-radius */
     color: #fff;
     border: 2px solid #ade8f4;
+    border-style: dashed;
+    cursor: pointer;
+    border-radius: 8px;
+    background: transparent;
+    width: 600px;
+}
+
+#mathInput {
+    color: #fff;
+    border: 2px solid #ade8f4;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    background: transparent;
+    border-radius: 8px;
+    outline: none;
+    font-family: 'Urbanist', sans-serif; 
+}
+
+#mathInput::placeholder {
+    color: #fff;
+    text-align:  center;
+    font-style: italic;
 }
 
 label {
@@ -38,6 +73,7 @@ label {
     margin-bottom: 5px;
     color: #fff;
     font-size: 20px;
+    text-align: center;
 }
 
 textarea,
@@ -64,6 +100,13 @@ input[type="file"] {
     margin-right: 2px;
 }
 
+#correct::placeholder,
+#solution::placeholder,
+#mathInput::placeholder {
+    color: #fff;
+    font-family: 'Urbanist', sans-serif;
+}
+
 button {
     font-family: 'Nova Square', sans-serif;
     padding: 10px;
@@ -75,46 +118,79 @@ button {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin: 0 auto;
-    margin: 5px 110px;
+    margin: 5px auto 0;
+    display: block
 }
 
 button:hover {
     background-color: #2980b9;
 }
-.math-equation input {
-        display: block;
-        color: #fff;
-        border: 2px solid #ade8f4;
-        width: 640px;
-        height: 65px;
+
+.done-btn a{
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+}
+
+.done-btn {
+    font-family: 'Nova Square', sans-serif;
+    padding: 10px;
+    width: 100px;
+    background-color: #3498db;
+    border: 2px solid #ade8f4;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 15px auto 0;
+    display: block;
+}
+
+.done-btn:hover {
+    background-color: #2980b9;
+}
+
+@media only screen and (max-width: 768px) {
+    .form-group {
+        margin-bottom: 15px; 
+    }
+
+    label {
+        font-size: 15px; 
+        margin-bottom: 10px; 
+        margin-top: 10px;
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="file"] {
         padding: 10px;
-        box-sizing: border-box;
+        width: 100%;
+        margin: 0 auto; 
+        display: block; 
         margin-bottom: 10px;
-        background: transparent;
-        border-radius: 20px;
-        outline: none;
-        font-family: 'Urbanist', sans-serif; /* Use the specified font family */
     }
 
-    .math-equation input::placeholder {
-        color: #fff; /* Adjust placeholder text color as needed */
-        text-align: center;
-        font-style: italic;
+    button,
+    .done-btn {
+        width: 30%; 
+        padding: 10px; 
+        font-size: 10px; 
+        margin-top: 10px;
     }
 
-    .photo-container {
-        display: block;
-        background: transparent;
-        border-radius: 20px;
-        border: 2px solid #ade8f4;
-        height: 200px;
-        width: 635px;
+    .custom-upload-label {
+        padding: 10px; 
+        font-size: 14px; 
+        width: 90%;
+        margin: 0 auto; 
+        display: block; 
+    }
 
+    .choices {
+        display: flex; 
+        flex-direction: column; 
     }
     
-    .photo-container img {
-        width: 200px; /* Adjust the width as needed */
-        height: auto; /* Maintain aspect ratio */
-        margin-top: 30px;
-    }
+}

@@ -38,6 +38,11 @@ urlpatterns = [
     path('password_reset_confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='password/password_reset_confirm.html'), name='password_reset_confirm'),
     path('password_reset_complete/',auth_views.PasswordResetCompleteView.as_view(template_name='password/password_reset_complete.html'), name='password_reset_complete'),
     
+    # quiz not available template
+    path('quiz-not-available/<int:id>/',views.not_available, name='quiz-not-available'),
+    
+    path('about-us/',views.about_us, name='about-us'),
+    path('contact-us/',views.about_us, name='contact-us'),
     
     
 ]

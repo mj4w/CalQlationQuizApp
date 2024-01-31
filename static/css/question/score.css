@@ -130,3 +130,34 @@ button:hover {
   background-color: #2980b9;
 
 }
+
+@media only screen and (max-width: 768px) {
+  #score-container {
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 18px;
+  }
+
+  #trophy {
+    width: 200px;
+    margin-top: 30px;
+  }
+
+  #congratulations {
+    font-size: 24px;
+    margin-top: 5px;
+  }
+
+  #score-container button {
+    width: 80%;
+    margin: 10px auto;
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+
+  .modal-content {
+    width: 90%;
+    height: 70%;
+  }
+}

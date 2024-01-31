@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Group Quiz</title>
   <link rel="stylesheet" href="{% static 'css/question/question.css' %}">
+  <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive-static.css" />
 </head>
 <body>
 
@@ -19,7 +20,17 @@
     {% for question in shuffled_questions %}
       <div class="question-container" id="question{{ question.id }}">
         <div class="question">
-          <p>{{ question.question_text }}</p>
+          <div class="text-question">
+            <p>{{ question.question_text }}</p>
+
+          </div>
+          {% autoescape off %}
+          <div class="mathlive">
+            <p>{{ question.question_formula }}</p>
+         
+          </div>
+          
+          {% endautoescape %}
         </div>
         <div class="choices">
           <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_a }}"  id="q{{ question.id }}a"><label for="q{{ question.id }}a">{{ question.option_a }}</label><br>
@@ -28,7 +39,7 @@
         </div>
       </div>
     {% endfor %}
-    <button>Submit</button>
+    <button style="">Submit</button>
   </form>
   {% else %}
     <p>No questions available for the selected criteria.</p>
@@ -75,7 +86,27 @@
   // Call the startTimer function when the page loads
   startTimer();
 </script>
+<script type="module">
+  import { convertLatexToMarkup }
+    from 'https://unpkg.com/mathlive/dist/mathlive.min.mjs';
 
+  function  replaceSpaces(input) {
+    if (input == null) return "";
+    var output = input.toString().replace(/ /g,"\\; ");
+    return "$$" + output + "$$";
+  }
+
+  var elements = document.getElementsByClassName("mathlive");
+  for (let i = 0; i < elements.length; i++) {
+    var el = elements[i];
+    el.innerHTML = convertLatexToMarkup(
+      replaceSpaces(el.innerText), {
+        letterShapeStyle: 'iso',
+               mathstyle: 'textstyle'
+      }
+    );
+  }
+</script>
 
 </body>
 </html>

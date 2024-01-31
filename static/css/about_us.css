@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+
+body {
+    font-family: 'Urbanist', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('.././img/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    color: #0077b6;
+}
+
+.about-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 100px;
+    color: #fff;
+}
+
+.team-container {
+    width: 45%;
+    padding-right: 20px;
+}
+
+.team-container h2 {
+    font-size: 40px;
+}
+
+.team-container p{
+    font-size: 20px;
+    font-style: italic;
+}
+
+.image-container {
+    width: 45%;
+    position: relative;
+}
+
+.team-slider {
+    display: flex;
+    overflow: hidden;
+}
+
+.team-slider img {
+    width: 100%;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.dots-container {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.team-icons {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 25px;
+    border-radius: 10px;    
+    width: 79%;
+    margin: 0 auto;
+    margin-bottom: 100px;
+}
+
+.icon {
+    position: relative;
+    text-align: center;
+}
+
+.icon img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.icon-name {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: #fff;
+}
+
+.card {
+    display: none;
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 250px;
+    padding: 20px;
+    background: transparent;
+    border: 3px solid rgba(257, 257, 257, .4);
+    backdrop-filter: blur(50px);
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 1;
+    transition: opacity 0.3s ease-in-out;
+    text-align: justify;
+}
+
+.card p {
+    font-size: 14px;
+    line-height: 1.2;
+    margin: 0;
+    font-style: italic;
+}
+
+.icon:hover .card {
+    display: block;
+}
+
+.team-slider {
+    display: flex;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+}
+
+.team-slider img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.dots-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    border: 2px solid #fff;
+}
+
+.dot.active {
+    background-color: #3498db;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    cursor: pointer;
+    color: #fff;
+    background: none;
+    border: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.prev:hover, .next:hover {
+    color: #3498db;
+}
+
+.dot.active {
+    background-color: #0077b6;
+}
+
+footer {
+    background-color: #001233;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .about-container {
+        flex-direction: column;
+        padding: 50px 20px;
+    }
+
+    .team-container,
+    .image-container {
+        width: 100%;
+        padding: 0;
+        text-align: center; 
+    }
+
+    .team-container h2 {
+        font-size: 32px;
+    }
+
+    .team-container p {
+        font-size: 16px;
+    }
+
+    .team-slider {
+        margin-top: 20px; 
+        position: relative; 
+    }
+
+    .team-slider img {
+        border-radius: 20px;
+        width: 100%;
+    }
+
+    .dots-container {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .dot {
+        height: 7px;
+        width: 7px;
+        margin: 0 5px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+        border: 2px solid #fff;
+    }
+
+    .dot.active {
+        background-color: #3498db;
+    }
+
+    .team-icons {
+        background-color: transparent;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0 10px; 
+        border-radius: 10px;
+        margin-top: 20px; 
+    }
+
+    .team-icons img {
+        width: calc(100% - 20px);
+        max-width: 80px;
+        height: auto;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .icon {
+        width: calc(100% - 20px); 
+        margin: 0 auto 20px auto; 
+        position: relative;
+        overflow: hidden;
+        border: 2px solid rgba(257, 257, 257, .4);
+        padding: 5px;
+        border-radius: 10px;
+    }
+
+    .icon img {
+        width: 100%; 
+        max-width: 60px; 
+        height: auto;
+        display: block;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .icon-name {
+        font-size: 16px;
+        margin-left: 10px;
+        color: #fff;
+    }
+
+    .icon-container {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+
+    .card p {
+        font-size: 16px; 
+        color: #fff; 
+        text-align: center;
+        margin-bottom: 0;
+        margin-top: 100px;
+    }
+
+    .card-container {
+        position: absolute; 
+        bottom: 10px; 
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        margin: 0 auto; 
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden; 
+        border: none;
+        background: transparent;
+        backdrop-filter: none;
+        box-shadow: none;
+    }
+
+    .card img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    footer p {
+        font-size: 10px;
+    }
+}

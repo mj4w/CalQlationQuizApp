@@ -18,10 +18,20 @@
     <div class="hero">
         <nav>
             <img src="{% static 'img/logo.png' %}" class="logo">
+            <button class="burger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+            <div class="close-button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about-us' %}">About Us</a></li>
+                <li><a href="{% url 'contact-us' %}">Contact</a></li>
             </ul>
         </nav>
         <div class="info">

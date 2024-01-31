@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Nova Square', sans-serif;
-    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('/static/img/bg.jpg');
+    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('./../../img/bg.jpg');
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -132,4 +132,41 @@ button {
 
 button:hover {
     background-color: var(--hover-color);
+}
+
+@media only screen and (max-width: 768px) {
+    .logo-text {
+        font-size: 1em;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    #group p {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .quiz-settings {
+        margin: 20px auto;
+    }
+
+    .section {
+        width: 100%;
+    }
+
+    .section i {
+        top: 40px;
+        left: 90%;
+    }
+
+    label {
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    button {
+        padding: .5em 1.2em;
+        gap: 0.3em;
+        margin-top: 15px;
+    }
 }

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
 
 body {
-    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('/static/img/bg.jpg');
+    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('./../../img/bg.jpg');
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -112,7 +112,7 @@ a{
 
 button {
     font-family: 'Nova Square', sans-serif;
-    margin: 5px 20px; /* Add spacing between buttons */
+    margin: 5px 20px;
     padding: 10px;
     width: 100px;
     background-color: #3498db;
@@ -126,4 +126,61 @@ button {
 
 button:hover {
     background: #2980b9;
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    label{
+        font-size: 13px;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        margin-left: 10px;
+    }
+
+    .quiz-setup-container {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    input, select {
+        width: calc(100% - 20px);
+        padding: 8px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+
+    .switch {
+        width: 30px;
+        height: 15px;
+    }
+
+    .slider {
+        border-radius: 10px;
+    }
+
+    .slider:before {
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        left: 1px;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(15px);
+    }
+
+    button {
+        width: 30%;
+        padding: 8px 10px;
+        font-size: 12px;
+    }
 }

@@ -31,11 +31,13 @@ class Question(models.Model):
     ]
     topic = models.CharField(max_length=100, choices=TOPIC_CHOICES)
     question_text = models.TextField()
+    question_formula = models.TextField(blank=True, null=True)
     option_a = models.TextField(null=True, blank=True)
     option_b = models.TextField(null=True, blank=True)
     option_c = models.TextField(null=True, blank=True)
     answer = models.CharField(max_length=100, null=True, blank=True)
     hint_question = models.CharField(max_length=100, null=True, blank=True)
+    solution_here = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f'Topic: {self.topic},Question: {self.question_text}'
@@ -57,7 +59,7 @@ class ResultPractice(models.Model):
     topic_show = models.ForeignKey(PracticeMode, on_delete=models.CASCADE)
     num_question_show = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
-    user_answer = models.CharField(max_length=100, default='') 
+    user_answer = models.CharField(max_length=100, null=False) 
     
     def __str__(self):
         return f'{self.user} Score: {self.score} show questions {self.num_question_show}'
@@ -77,6 +79,7 @@ class SoloQuestion(models.Model):
     ]
     difficulty = models.CharField(max_length=10, choices=DIFFICULTY_CHOICES,  blank=True, null=True)
     question_text = models.TextField()
+    question_formula = models.TextField(blank=True, null=True)
     option_a = models.TextField(null=True, blank=True)
     option_b = models.TextField(null=True, blank=True)
     option_c = models.TextField(null=True, blank=True)
@@ -102,7 +105,7 @@ class SoloResultPractice(models.Model):
     question = models.ForeignKey(SoloQuestion, on_delete=models.CASCADE)
     num_question_show = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
-    user_answer = models.CharField(max_length=100, default='') 
+    user_answer = models.CharField(max_length=100, null=False) 
     
     def __str__(self):
         return f'{self.user} Score: {self.score} show questions {self.num_question_show}'
@@ -148,7 +151,7 @@ class ResultActual(models.Model):
     quiz_setting = models.ForeignKey(QuizSetting,on_delete =models.CASCADE,blank=True, null=True)
     question = models.ForeignKey(ActualQuiz, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
-    user_answer = models.CharField(max_length=100, default='') 
+    user_answer = models.CharField(max_length=100, null=False) 
     time_finished = models.DateTimeField(default=timezone.now)
     
     def __str__(self):

@@ -6,8 +6,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz Score</title>
   <link rel="stylesheet" href="{% static 'css/question/score.css' %}">
+  <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive-static.css" />
 </head>
+<style>
+    .leaderboard {
+        width: 100%;
+        overflow-x: auto; 
+    }
+
+    .leaderboard-entry {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .entry-data {
+        flex: 1;
+        text-align: center;
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    @media (max-width: 600px) {
+        /* Adjust styling for small screens */
+        .leaderboard-entry {
+            flex-direction: column;
+            align-items: center;
+        }
+        .entry-data {
+            width: 100%;
+            text-align: left;
+            white-space: normal;
+            text-overflow: clip;
+            overflow-wrap: break-word;
+        }
+    }
+</style>
 <body>
+    
 
 <div id="score-container">
     <p>Your final score is: <span id="score">{{ total_score }} </span></p>
@@ -42,13 +80,13 @@
             {% for result_detail in results_details %}
             <div class="leaderboard-entry">
                 <span class="entry-data">{{forloop.counter}} </span>
-                <span class="entry-data">{{result_detail.add_text}}</span>
+                <span class="entry-data mathlive">{{result_detail.add_text}} {{result_detail.add_equation}}</span>
                 {% if result_detail.user_answer == result_detail.correct_answer %}
                 <span style="color: green;" class="entry-data">{{result_detail.user_answer}}</span>
                 {% else %}
-                <span style="color: red;" class="entry-data">{{result_detail.user_answer}}</span>
+                <span style="color: red;" class="entry-data mathlive">{{result_detail.user_answer}}</span>
                 {% endif %}
-                <span class="entry-data">{{result_detail.correct_answer}}</span>
+                <span class="entry-data mathlive">{{result_detail.correct_answer}}</span>
             </div>
             {% endfor %}
         </div>
@@ -73,7 +111,7 @@
             {% for result_detail in results_details %}
             <div class="leaderboard-entry">
                 <span class="entry-data">{{forloop.counter}} </span>
-                <span class="entry-data">{{result_detail.add_text}}</span>
+                <span class="entry-data mathlive">{{result_detail.add_text}} {{result_detail.add_equation}}</span>
                 <span class="entry-data">{{result_detail.solution}}</span>
             </div>
             {% endfor %}
@@ -100,6 +138,27 @@
         }
     };
     
+    </script>
+<script type="module">
+    import { convertLatexToMarkup }
+        from 'https://unpkg.com/mathlive/dist/mathlive.min.mjs';
+    
+    function  replaceSpaces(input) {
+        if (input == null) return "";
+        var output = input.toString().replace(/ /g,"\\; ");
+        return "$$" + output + "$$";
+    }
+    
+    var elements = document.getElementsByClassName("mathlive");
+    for (let i = 0; i < elements.length; i++) {
+        var el = elements[i];
+        el.innerHTML = convertLatexToMarkup(
+        replaceSpaces(el.innerText), {
+            letterShapeStyle: 'iso',
+                    mathstyle: 'textstyle'
+        }
+        );
+    }
     </script>
 </html>
 

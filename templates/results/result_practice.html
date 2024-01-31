@@ -6,16 +6,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz Score</title>
   <link rel="stylesheet" href="{% static 'css/question/score.css' %}">
+  <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive-static.css" />
 </head>
 <body>
+<style>
+    .leaderboard {
+        width: 100%;
+        overflow-x: auto; 
+    }
 
+    .leaderboard-entry {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .entry-data {
+        flex: 1;
+        text-align: center;
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    @media (max-width: 600px) {
+        /* Adjust styling for small screens */
+        .leaderboard-entry {
+            flex-direction: column;
+            align-items: center;
+        }
+        .entry-data {
+            width: 100%;
+            text-align: left;
+            white-space: normal;
+            text-overflow: clip;
+            overflow-wrap: break-word;
+        }
+    }
+</style>
 <div id="score-container">
-  <p>Your final score is: <span id="score">{{ total_score }} </span></p>
-  <img src="{% static 'img/trophy.png' %}" alt="Trophy" id="trophy">
-  <p id="congratulations">Congratulations! You've completed the quiz!</p>
-  <div>
-    <button onclick="openModal('leaderboards')">Show Leaderboards</button>
-   </div>
+    <p>Your final score is: <span id="score">{{ total_score }} </span></p>
+    <img src="{% static 'img/trophy.png' %}" alt="Trophy" id="trophy">
+    <p id="congratulations">Congratulations! You've completed the quiz!</p>
+    <div>
+        <button onclick="openModal('correctAnswerModal')">Show Correct Answer</button>
+        <button onclick="openModal('solutionModal')">Show Solution</button>
+    </div>
+    <div style="margin-top: 20px;">
+        <button onclick="openModal('leaderboards')">Show Leaderboards</button>
+    </div>
 </div>
 <div id="leaderboards" class="modal">
   <div class="modal-content">
@@ -40,7 +80,61 @@
       </div>
   </div>
 </div>
+<!-- Correct Answer Modal -->
+<div id="correctAnswerModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('correctAnswerModal')">&times;</span>
+        <header>
+            <h1 class="leaderboard-text">Correct Answer</h1>
+        </header>
+        <div class="leaderboard">
+            <!-- Leaderboard content goes here -->
+            <div class="leaderboard-entry">
+                <span class="entry-data"><strong>#</strong></span>
+                <span class="entry-data"><strong>Question</strong></span>
+                <span class="entry-data"><strong>Your Answer</strong></span>
+                <span class="entry-data"><strong>Correct Answer</strong></span>
+            </div>
+            {% for result_detail in results_details %}
+            <div class="leaderboard-entry">
+                <span class="entry-data">{{forloop.counter}} </span>
+                <span class="entry-data mathlive">{{result_detail.question_text}} {{result_detail.question_formula}}</span>
+                {% if result_detail.user_answer == result_detail.correct_answer %}
+                <span style="color: green;" class="entry-data mathlive">{{result_detail.user_answer}}</span>
+                {% else %}
+                <span style="color: red;" class="entry-data mathlive">{{result_detail.user_answer}}</span>
+                {% endif %}
+                <span class="entry-data mathlive">{{result_detail.correct_answer}}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
+<!-- Solution Modal -->
+<div id="solutionModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('solutionModal')">&times;</span>
+        <header>
+            <h1 class="leaderboard-text">Correct Answer</h1>
+        </header>
+        <div class="leaderboard">
+            <!-- Leaderboard content goes here -->
+            <div class="leaderboard-entry">
+                <span class="entry-data"><strong>#</strong></span>
+                <span class="entry-data"><strong>Question</strong></span>
+                <span class="entry-data"><strong>Solution</strong></span>
+            </div>
+            {% for result_detail in results_details %}
+            <div class="leaderboard-entry">
+                <span class="entry-data">{{forloop.counter}} </span>
+                <span class="entry-data mathlive">{{result_detail.question_text}} {{result_detail.question_formula}}</span>
+                <span class="entry-data mathlive">{{result_detail.solution}}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 </body>
 <script>
   // Function to open a modal
@@ -61,6 +155,27 @@
   };
   
 </script>
+<script type="module">
+    import { convertLatexToMarkup }
+      from 'https://unpkg.com/mathlive/dist/mathlive.min.mjs';
+  
+    function  replaceSpaces(input) {
+      if (input == null) return "";
+      var output = input.toString().replace(/ /g,"\\; ");
+      return "$$" + output + "$$";
+    }
+  
+    var elements = document.getElementsByClassName("mathlive");
+    for (let i = 0; i < elements.length; i++) {
+      var el = elements[i];
+      el.innerHTML = convertLatexToMarkup(
+        replaceSpaces(el.innerText), {
+          letterShapeStyle: 'iso',
+                 mathstyle: 'textstyle'
+        }
+      );
+    }
+  </script>
 </html>
 
 <!-- {% for result_details in results_details %}

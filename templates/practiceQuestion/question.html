@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Solo Quiz</title>
   <link rel="stylesheet" href="{% static 'css/question/question.css' %}">
+  <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive-static.css" />
 </head>
 <body>
 
@@ -16,15 +17,22 @@
     {% for question in shuffled_questions %}
       <div class="question-container" id="question{{ question.id }}">
         <div class="question">
-          {% autoescape off %}
-          <p>{{ question.question_text }}</p>
-          {% endautoescape %}
+          <div class="text-question">
+            <p>{{ question.question_text }}</p>
 
+          </div>
+          {% autoescape off %}
+          <div class="mathlive">
+            <p>{{ question.question_formula }}</p>
+         
+          </div>
+          
+          {% endautoescape %}
         </div>
         <div class="choices">
-          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_a }}"  id="q{{ question.id }}a"><label for="q{{ question.id }}a">{{ question.option_a }}</label><br>
-          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_b }}" id="q{{ question.id }}b"><label for="q{{ question.id }}b">{{ question.option_b }}</label><br>
-          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_c }}" id="q{{ question.id }}c"><label for="q{{ question.id }}c">{{ question.option_c }}</label><br>
+          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_a }}"  id="q{{ question.id }}a"><label for="q{{ question.id }}a" class="mathlive">{{ question.option_a }}</label><br>
+          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_b }}" id="q{{ question.id }}b"><label for="q{{ question.id }}b" class="mathlive">{{ question.option_b }}</label><br>
+          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_c }}" id="q{{ question.id }}c"><label for="q{{ question.id }}c" class="mathlive">{{ question.option_c }}</label><br>
         </div>
       </div>
     {% endfor %}
@@ -34,7 +42,42 @@
     <p>No questions available for the selected criteria.</p>
   {% endif %}
 </div>
+<!-- <h3>Enlarged formula</h3>
+<div class="mathlive" style="font-size: 24pt;">
+  \displaystyle x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+</div>
 
+<h2>Editable Math Formulae</h2>
+<math-field>
+  x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+</math-field>
+
+<p>Laid out as block element:
+  <math-field style="display: block">
+    x=\frac{-b\pm \sqrt{b^2-4ac}}{2a}
+  </math-field>.
+</p> -->
+<script type="module">
+  import { convertLatexToMarkup }
+    from 'https://unpkg.com/mathlive/dist/mathlive.min.mjs';
+
+  function  replaceSpaces(input) {
+    if (input == null) return "";
+    var output = input.toString().replace(/ /g,"\\; ");
+    return "$$" + output + "$$";
+  }
+
+  var elements = document.getElementsByClassName("mathlive");
+  for (let i = 0; i < elements.length; i++) {
+    var el = elements[i];
+    el.innerHTML = convertLatexToMarkup(
+      replaceSpaces(el.innerText), {
+        letterShapeStyle: 'iso',
+               mathstyle: 'textstyle'
+      }
+    );
+  }
+</script>
 </body>
 </html>
 
