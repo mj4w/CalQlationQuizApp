@@ -1,5 +1,6 @@
 asgiref==3.7.2
 Django==5.0
+django-jazzmin==2.6.0
 django-mathfield==0.1.0
 Pillow==10.1.0
 pytz==2023.3.post1
