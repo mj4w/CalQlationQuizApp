@@ -23,12 +23,11 @@
         border-bottom: 1px solid #ccc;
     }
 
-    .entry-data {
-        flex: 1;
-        text-align: center;
-        overflow-x: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+    .entry-data{
+        width: 100%;
+        font-size: 20px;
+        word-wrap: break-word;
+        overflow: auto;
     }
 
     @media (max-width: 600px) {
@@ -96,17 +95,23 @@
         </header>
         <div class="leaderboard">
             <!-- Leaderboard content goes here -->
-            <div class="leaderboard-entry">
-                <span class="entry-data"><strong>#</strong></span>
-                <span class="entry-data"><strong>Question</strong></span>
-                <span class="entry-data"><strong>Solution</strong></span>
-            </div>
+
             {% for result_detail in results_details %}
             <div class="leaderboard-entry">
-                <span class="entry-data">{{forloop.counter}} </span>
+                <span class="entry-data"><strong>Question {{forloop.counter}}</strong></span>
+
+            </div>
+            <div class="leaderboard-entry">
                 <span class="entry-data mathlive">{{result_detail.question_text}} {{result_detail.question_formula}}</span>
+            </div>
+            <div class="leaderboard-entry">
+                <span class="entry-data"><strong>Solution {{forloop.counter}}</strong></span>
+            </div>
+            <div class="leaderboard-entry">
+
                 <span class="entry-data mathlive">{{result_detail.solution}}</span>
             </div>
+            <br/>
             {% endfor %}
         </div>
     </div>
