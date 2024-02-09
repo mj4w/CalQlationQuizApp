@@ -23,15 +23,20 @@
         border-bottom: 1px solid #ccc;
     }
 
-    .entry-data{
+    .entry-data {
+        flex: 1;
+        text-align: center;
+        font: 20px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .entry-data img {
         width: 100%;
-        font-size: 20px;
-        word-wrap: break-word;
-        overflow: auto;
     }
 
     @media (max-width: 600px) {
         /* Adjust styling for small screens */
+
         .leaderboard-entry {
             flex-direction: column;
             align-items: center;
@@ -41,7 +46,11 @@
             text-align: left;
             white-space: normal;
             text-overflow: clip;
-            overflow-wrap: break-word;
+            overflow: auto;
+
+        }
+        .entry-data img {
+            width: 100%;
         }
     }
 </style>
@@ -91,27 +100,28 @@
     <div class="modal-content">
         <span class="close" onclick="closeModal('solutionModal')">&times;</span>
         <header>
-            <h1 class="leaderboard-text">Correct Answer</h1>
+            <h1 class="leaderboard-text">Solution</h1>
         </header>
         <div class="leaderboard">
             <!-- Leaderboard content goes here -->
+            <div class="leaderboard-entry">
+                <span class="entry-data"><strong>#</strong></span>
+                <span class="entry-data"><strong>Question</strong></span>
+                <span class="entry-data"><strong>Solution</strong></span>
+            </div>
 
             {% for result_detail in results_details %}
             <div class="leaderboard-entry">
-                <span class="entry-data"><strong>Question {{forloop.counter}}</strong></span>
-
-            </div>
-            <div class="leaderboard-entry">
+                <span class="entry-data"><strong>{{forloop.counter}}</strong></span>
                 <span class="entry-data mathlive">{{result_detail.question_text}} {{result_detail.question_formula}}</span>
-            </div>
-            <div class="leaderboard-entry">
-                <span class="entry-data"><strong>Solution {{forloop.counter}}</strong></span>
-            </div>
-            <div class="leaderboard-entry">
+                {% if result_detail.solution %}    
+                    <span class="entry-data"><a href="{{ result_detail.solution.url }}" target="_blank"><img id="myImg" src="{{ result_detail.solution.url }}" alt="{{result_detail.question_text}} {{result_detail.question_formula}}"/></a></span>
 
-                <span class="entry-data mathlive">{{result_detail.solution}}</span>
+                {% else %}
+                    <span class="entry-data">No Solution Shown</span>
+                {% endif %}
+
             </div>
-            <br/>
             {% endfor %}
         </div>
     </div>
@@ -138,25 +148,25 @@
 </script>
 <script type="module">
     import { convertLatexToMarkup }
-      from 'https://unpkg.com/mathlive/dist/mathlive.min.mjs';
-  
+        from 'https://unpkg.com/mathlive/dist/mathlive.min.mjs';
+    
     function  replaceSpaces(input) {
-      if (input == null) return "";
-      var output = input.toString().replace(/ /g,"\\; ");
-      return "$$" + output + "$$";
+        if (input == null) return "";
+        var output = input.toString().replace(/ /g,"\\; ");
+        return "$$" + output + "$$";
     }
-  
+    
     var elements = document.getElementsByClassName("mathlive");
     for (let i = 0; i < elements.length; i++) {
-      var el = elements[i];
-      el.innerHTML = convertLatexToMarkup(
+        var el = elements[i];
+        el.innerHTML = convertLatexToMarkup(
         replaceSpaces(el.innerText), {
-          letterShapeStyle: 'iso',
-                 mathstyle: 'textstyle'
+            letterShapeStyle: 'iso',
+                    mathstyle: 'textstyle'
         }
-      );
+        );
     }
-  </script>
+    </script>
 </html>
 
 <!-- {% for result_details in results_details %}

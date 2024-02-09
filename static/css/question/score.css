@@ -54,7 +54,8 @@ body {
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 70%;
+  height: auto;
 }
 
 .close {
@@ -157,7 +158,6 @@ button:hover {
   }
 
   .modal-content {
-    width: 90%;
-    height: 70%;
+    height: auto;
   }
 }

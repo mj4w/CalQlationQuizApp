@@ -334,8 +334,7 @@ img{
 
 @media only screen and (max-width: 768px) {
     .logo {
-        margin-left: 5px;
-        width: 70px; 
+        width: 100px; 
     }
 
     .img-box {
@@ -343,17 +342,17 @@ img{
     }
 
     .info h1 {
-        font-size: 30px; 
-        line-height: 40px;
+        font-size: 40px; 
     }
 
     .info p {
         font-size: 16px;
-        line-height: 24px; 
+        margin-bottom: 20px;
     }
 
     .btnLogin-popup {
-        font-size: 8px; 
+        margin: auto;
+        font-size: 13px; 
         padding: 0.8em 1.5em;
     }
 
@@ -369,7 +368,7 @@ img{
     }
 
     .main-box h1 {
-        font-size: 20px;
+        font-size: 40px;
         line-height: 40px;
     }
 
@@ -379,24 +378,24 @@ img{
     }
 
     .input-box label {
-        font-size: 10px;
+        font-size: 20px;
     }
 
     .input-box input {
-        font-size: 10px;
+        font-size: 20px;
     }
 
     .input-box .icon {
-        font-size: 10px;
+        font-size: 20px;
     }
 
     .input-box input:focus~label,
     .input-box input:valid~label{
-    font-size: 10px;
+    font-size: 15px;
 }
 
     .check {
-        font-size: 10px;
+        font-size: 15px;
         margin: 5px 0 10px;
     }
 
@@ -410,23 +409,22 @@ img{
     }
 
     .main-btn {
-        font-size: 10px; 
+        font-size: 20px; 
         height: 30px; 
     }
 
     .main-box.register h1 {
-        font-size: 20px;
-        margin-top: -150px;
-        line-height: 30px; 
+        font-size: 40px;
+        margin-top: 100px;
     }
 
     .register {
-        font-size: 10px; 
+        font-size: 15px; 
         margin: 10px 0; 
     }
 
     .register p a {
-        font-size: 10px; 
+        font-size: 15px; 
         margin-top: 5px;
     }
 
@@ -476,6 +474,7 @@ img{
         padding: 15px;
         border-bottom: 1px solid #fff;
         width: 90%;
+        font-size: 20px;
     }
     
     .burger-menu.active .bar:nth-child(1) {

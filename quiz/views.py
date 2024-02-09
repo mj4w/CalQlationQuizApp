@@ -214,6 +214,7 @@ def solo_result(request, practice_mode_instance_id):
         }
         total_score += latest_result.score
         results_details.append(result_details)
+        print(result_details['solution'])
    
     return render(request, 'results/solo_result.html', {'results_details': results_details, 'total_score': total_score})
 @csrf_exempt

@@ -37,7 +37,7 @@ class Question(models.Model):
     option_c = models.TextField(null=True, blank=True)
     answer = models.CharField(max_length=100, null=True, blank=True)
     hint_question = models.CharField(max_length=100, null=True, blank=True)
-    solution_here = models.TextField(null=True, blank=True)
+    solution_here = models.ImageField(upload_to='solutions/',blank=True)
 
     def __str__(self):
         return f'Topic: {self.topic},Question: {self.question_text}'
@@ -85,10 +85,10 @@ class SoloQuestion(models.Model):
     option_c = models.TextField(null=True, blank=True)
     answer = models.CharField(max_length=100, null=True, blank=True)
     hint_question = models.CharField(max_length=100, null=True, blank=True)
-    solution_here = models.TextField(null=True, blank=True)
+    solution_here = models.ImageField(upload_to='solutions/',blank=True)
 
     def __str__(self):
-        return f'Difficulty: {self.difficulty}, Question: {self.question_text}'
+        return f'{self.pk}: Difficulty: {self.difficulty}, Question: {self.question_text} {self.question_formula}'
     
 class SoloPracticeMode(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
