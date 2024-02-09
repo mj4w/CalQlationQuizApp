@@ -26,13 +26,17 @@
     .entry-data {
         flex: 1;
         text-align: center;
-        overflow-x: hidden;
+        font: 20px;
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+    .entry-data img {
+        width: 100%;
     }
 
     @media (max-width: 600px) {
         /* Adjust styling for small screens */
+
         .leaderboard-entry {
             flex-direction: column;
             align-items: center;
@@ -42,7 +46,11 @@
             text-align: left;
             white-space: normal;
             text-overflow: clip;
-            overflow-wrap: break-word;
+            overflow: auto;
+
+        }
+        .entry-data img {
+            width: 100%;
         }
     }
 </style>
@@ -128,9 +136,15 @@
             </div>
             {% for result_detail in results_details %}
             <div class="leaderboard-entry">
-                <span class="entry-data">{{forloop.counter}} </span>
+                <span class="entry-data"><strong>{{forloop.counter}}</strong></span>
                 <span class="entry-data mathlive">{{result_detail.question_text}} {{result_detail.question_formula}}</span>
-                <span class="entry-data mathlive">{{result_detail.solution}}</span>
+                {% if result_detail.solution %}    
+                    <span class="entry-data"><a href="{{ result_detail.solution.url }}" target="_blank"><img id="myImg" src="{{ result_detail.solution.url }}" alt="{{result_detail.question_text}} {{result_detail.question_formula}}"/></a></span>
+
+                {% else %}
+                    <span class="entry-data">No Solution Shown</span>
+                {% endif %}
+
             </div>
             {% endfor %}
         </div>

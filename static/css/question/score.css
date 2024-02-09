@@ -137,16 +137,17 @@ button:hover {
     max-width: 90%;
     margin: 20px auto;
     padding: 10px;
-    font-size: 18px;
+    font-size: 30px;
   }
 
   #trophy {
     width: 200px;
     margin-top: 30px;
+    font-size: 30px;
   }
 
   #congratulations {
-    font-size: 24px;
+    font-size: 30px;
     margin-top: 5px;
   }
 
@@ -154,7 +155,7 @@ button:hover {
     width: 80%;
     margin: 10px auto;
     padding: 12px 24px;
-    font-size: 14px;
+    font-size: 20px;
   }
 
   .modal-content {

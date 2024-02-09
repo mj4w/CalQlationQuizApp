@@ -142,11 +142,12 @@ button:hover {
     }
 
     #solo p {
-        font-size: 20px;
+        font-size: 30px;
         text-align: center;
     }
 
     .quiz-settings {
+        font-size: 20px;
         margin: 20px auto;
     }
 
@@ -168,5 +169,6 @@ button:hover {
         padding: .5em 1.2em;
         gap: 0.3em;
         margin-top: 15px;
+        font-size: 20px;
     }
 }
