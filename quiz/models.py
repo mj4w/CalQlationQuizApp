@@ -136,7 +136,7 @@ class ActualQuiz(models.Model):
     quiz_setting = models.ForeignKey(QuizSetting, on_delete=models.CASCADE,blank=True, null=True)
     add_text = models.CharField(max_length=255, blank=True, null=True)
     add_equation = models.CharField(max_length=255, blank=True, null=True)
-    add_solution_here = models.TextField(blank=True, null=True)
+    add_solution_here =  models.ImageField(upload_to='prof_solution/',blank=True)
     upload_photo = models.ImageField(upload_to='actual_quiz_photo/',blank=True)
     option_a = models.TextField(null=True, blank=True)
     option_b = models.TextField(null=True, blank=True)
