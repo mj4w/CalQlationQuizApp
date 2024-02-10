@@ -12,4 +12,3 @@
 ## Deployment
 <h6>PythonAnywhere</h6><strong>https://www.pythonanywhere.com/</strong>
 
-<h6>Link: </h6><strong>NOT ALLOWED DUE TO CIRCUMSTANCES</strong>
