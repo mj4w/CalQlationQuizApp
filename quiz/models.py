@@ -28,6 +28,7 @@ class Question(models.Model):
         ('Derivatives of Hyperbolic and inverse hyperbolic functions','Derivative of hyperbolic and inverse hyperbolic functions'),
         ('Implicit Differentiation','Implicit Differentiation'),
         ('Explicit Differentiation','Explicit Differentiation'),
+        ('Higher Derivative','Higher Derivative'),
     ]
     topic = models.CharField(max_length=100, choices=TOPIC_CHOICES)
     question_text = models.TextField()

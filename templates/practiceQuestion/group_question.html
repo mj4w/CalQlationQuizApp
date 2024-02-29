@@ -34,9 +34,9 @@
           {% endautoescape %}
         </div>
         <div class="choices">
-          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_a }}"  id="q{{ question.id }}a"><label for="q{{ question.id }}a">{{ question.option_a }}</label><br>
-          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_b }}" id="q{{ question.id }}b"><label for="q{{ question.id }}b">{{ question.option_b }}</label><br>
-          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_c }}" id="q{{ question.id }}c"><label for="q{{ question.id }}c">{{ question.option_c }}</label><br>
+          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_a }}"  id="q{{ question.id }}a"><label class="mathlive" for="q{{ question.id }}a">{{ question.option_a }}</label><br>
+          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_b }}" id="q{{ question.id }}b"><label class="mathlive" for="q{{ question.id }}b">{{ question.option_b }}</label><br>
+          <input type="radio" name="user_answer_{{ question.id }}" value="{{ question.option_c }}" id="q{{ question.id }}c"><label class="mathlive" for="q{{ question.id }}c">{{ question.option_c }}</label><br>
         </div>
       </div>
     {% endfor %}

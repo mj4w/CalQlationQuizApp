@@ -25,6 +25,7 @@ class PracticeModeForm(forms.Form):
         ('Derivatives of Hyperbolic and inverse hyperbolic functions','Derivative of hyperbolic and inverse hyperbolic functions'),
         ('Implicit Differentiation','Implicit Differentiation'),
         ('Explicit Differentiation','Explicit Differentiation'),
+        ('Higher Derivative','Higher Derivative'),
     ]
     
     topic = forms.ChoiceField(choices=TOPIC_CHOICES, label='Select Topic')
