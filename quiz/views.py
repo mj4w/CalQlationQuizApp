@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .forms import LoginForm, RegisterForm, PracticeModeForm,SoloPracticeModeForm
@@ -496,3 +496,7 @@ def about_us(request):
     return render(request,'about_us.html')
 def contact_us(request):
     return render(request,'contact_us.html')
+
+def log_out(request):
+    logout(request)
+    return redirect('home')

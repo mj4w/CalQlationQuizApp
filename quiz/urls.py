@@ -44,6 +44,8 @@ urlpatterns = [
     path('about-us/',views.about_us, name='about-us'),
     path('contact-us/',views.about_us, name='contact-us'),
     
+    path('log-out/',views.log_out, name='logout'),
+    
     
 ]
 
