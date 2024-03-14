@@ -207,3 +207,29 @@ body {
     font-size: 14px;
   }
 }
+.hint-container {
+  position: relative;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: #fff;
+  border: 2px solid #ade8f4;
+  background-color: #3498db;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  border-radius: 20px;
+  width: 600px;
+  height: 150px;
+  overflow: hidden;
+  padding: 10px 20px;
+  backdrop-filter: blur(10px);
+  font-size: 30px; 
+}
+
+.hint img {
+  width: 80px;
+  height: auto;
+  cursor: pointer;
+}
