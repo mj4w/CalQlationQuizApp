@@ -19,6 +19,13 @@
       <div id="timer-bar"></div>
     </div>
     {% for question in shuffled_questions %}
+    <div class="question-container" id="question{{ question.id }}">
+      <div class="hint">
+        <img src="{% static 'img/bulb.png' %}" alt="Hint" onclick="showHint('{{ question.id }}')">
+      </div>
+      <div class="hint-container" id="hintContainer{{ question.id }}" style="display: none;">
+        <p class="mathlive">{{ question.hint_question }} </p>
+      </div>
       <div class="question-container" id="question{{ question.id }}">
         <div class="question">
           <div class="text-question mathlive">
@@ -106,6 +113,18 @@
                mathstyle: 'textstyle'
       }
     );
+  }
+</script>
+<script>
+  function showHint(index) {
+    var hintContainer = document.getElementById("hintContainer" + index);
+    if (hintContainer.style.display === 'none') {
+      hintContainer.style.display = 'block';
+      hintContainer.style.position = 'absolute'; // Set position to absolute
+      hintContainer.style.zIndex = '1000'; // Set higher z-index to overlap questions
+    } else {
+      hintContainer.style.display = 'none';
+    }
   }
 </script>
 
