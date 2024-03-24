@@ -41,7 +41,7 @@ class Question(models.Model):
     solution_here = models.ImageField(upload_to='solutions/',blank=True)
 
     def __str__(self):
-        return f'Topic: {self.topic},Question: {self.question_text}'
+        return f'{self.id} Topic: {self.topic},Question: {self.question_text}'
     
 class PracticeMode(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
