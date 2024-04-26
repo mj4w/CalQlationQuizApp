@@ -281,9 +281,10 @@ def practice_question_group_default(request, practice_mode_instance_id):
     practice_mode_instance = PracticeMode.objects.get(id=practice_mode_instance_id)
     time_limit = practice_mode_instance.num_questions * 30
     questions = list(practice_mode_instance.questions.all())
+    players = ResultPractice.objects.filter(topic_show=practice_mode_instance).values('user__email').distinct()
     random.shuffle(questions)
-    print(time_limit)
-    return render(request,'practiceQuestion/questionGroupDefault.html',{'questions': questions, 'practice_mode_instance_id': practice_mode_instance_id, 'time_limit': time_limit})
+    players_count = players.count()
+    return render(request,'practiceQuestion/questionGroupDefault.html',{'questions': questions, 'practice_mode_instance_id': practice_mode_instance_id, 'time_limit': time_limit, 'players_count':players_count})
 
 
 @csrf_exempt

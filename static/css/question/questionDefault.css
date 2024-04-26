@@ -194,3 +194,30 @@ button:hover {
     cursor: pointer;
   }
 
+
+  .link-box {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative; /* Added for positioning the icon link */
+    width: 100px;
+    height: 50px;
+    background-color: #3498db;
+    text-align: center;
+    line-height: 50px; /* Adjusted line-height to match height */
+    border-radius: 30px;
+}
+
+.icon-link {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.link-box:after {
+    content: "";
+    display: table;
+    clear: both;
+}
