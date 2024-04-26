@@ -47,7 +47,7 @@ urlpatterns = [
     path('quiz-not-available/<int:id>/',views.not_available, name='quiz-not-available'),
     
     path('about-us/',views.about_us, name='about-us'),
-    path('contact-us/',views.about_us, name='contact-us'),
+    path('contact-us/',views.contact_us, name='contact-us'),
     
     path('log-out/',views.log_out, name='logout'),
     
