@@ -17,13 +17,18 @@ urlpatterns = [
     path('group-students/',views.student_group, name='group-student'),
     #practice question
     path('practice-question/solo/<int:practice_mode_instance_id>/', views.practice_question_solo, name='practice'),
+    # original 
+    path('practice-question/soloD/<int:practice_mode_instance_id>/', views.practice_question_solo_default, name='practice-default-solo'),
     #practice-question group
     path('practice-question/group/<int:practice_mode_instance_id>/', views.practice_question_group, name='practice-group'),
-    
+    # original 
+    path('practice-question/groupD/<int:practice_mode_instance_id>/', views.practice_question_group_default, name='practice-default-group'),
     # prof side
     path('create-quiz',views.create_quiz, name='create-quiz'),
     path('actual-quiz/<int:id>/', views.actual_quiz, name='actual-quiz'),
     path('link-quiz/<int:id>/', views.link_actual_quiz, name='link-actual-quiz'),
+    # original 
+    path('quiz-form/<int:id>/', views.quiz_form_prof, name='quiz-form'),
     path('get-link/<int:id>/', views.done_create_quiz, name='get-link'),
     #result 
     path('result-practice/<int:practice_mode_instance_id>/', views.resultP, name='result-practice'),
@@ -45,6 +50,11 @@ urlpatterns = [
     path('contact-us/',views.about_us, name='contact-us'),
     
     path('log-out/',views.log_out, name='logout'),
+    
+    
+    path('submit-solo-answers/', views.submit_solo_answers, name='submit-solo'),
+    path('submit-group-answers/', views.submit_group_answers, name='submit-group'),
+    path('submit-quiz-answers/', views.submit_prof_answers, name="submit-prof"),
     
     
 ]

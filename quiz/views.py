@@ -17,6 +17,10 @@ from django.db.models import Sum
 from operator import itemgetter
 from itertools import groupby
 from django.views.decorators.csrf import csrf_exempt
+from django.core.serializers import serialize
+from django.http import JsonResponse
+import json
+
 
 # professor & student
 # def register_view(request):
@@ -127,8 +131,9 @@ def student_solo(request):
             
             practice_mode_instance.save()
             practice_mode_instance.questions.set(questions)
-
-            # Pass the practice_mode_instance to the 'practice' view
+            form = request.POST.get('change_form')
+            if form == "on":
+                return redirect('practice-default-solo',practice_mode_instance_id=practice_mode_instance.id)
             return redirect('practice', practice_mode_instance_id=practice_mode_instance.id)
     else:
         form = SoloPracticeModeForm()
@@ -151,13 +156,63 @@ def student_group(request):
             
             practice_mode_instance.save()
             practice_mode_instance.questions.set(questions)
-
-            # Pass the practice_mode_instance to the 'practice' view
+            form = request.POST.get('change_form')
+            if form == "on":
+                return redirect('practice-default-group',practice_mode_instance_id=practice_mode_instance.id)
             return redirect('practice-group', practice_mode_instance_id=practice_mode_instance.id)
     else:
         form = PracticeModeForm()
         
     return render(request,'practiceMode/student_group.html', {'form': form})
+
+
+@csrf_exempt
+@login_required(login_url='home')
+def practice_question_solo_default(request, practice_mode_instance_id):
+    practice_mode_instance = SoloPracticeMode.objects.get(id=practice_mode_instance_id)
+    questions = list(practice_mode_instance.questions.all())
+    random.shuffle(questions)
+    return render(request,'practiceQuestion/questionSoloDefault.html',{'questions': questions, 'practice_mode_instance_id': practice_mode_instance_id})
+
+@csrf_exempt
+@login_required(login_url='home')
+def submit_solo_answers(request):
+    if request.method == 'POST':
+        try:
+            user_data = json.loads(request.body.decode('utf-8'))
+            practice_mode_instance_id = user_data.pop('practice_mode_instance_id', None)
+            practice_mode_instance = SoloPracticeMode.objects.get(id=practice_mode_instance_id)
+            questions = list(practice_mode_instance.questions.all())
+            random.shuffle(questions)
+
+            score = 0
+            results = []
+
+            user_answers_values = user_data.get('user_answers', {})
+            for question in questions:
+                user_answer_key = f'{question.id}'
+                user_answer = user_answers_values.get(user_answer_key, '')
+
+                if user_answer == question.answer:  
+                    score += 1
+
+                # Save the result
+                result = SoloResultPractice.objects.create(
+                    user=request.user,
+                    topic_show=practice_mode_instance,
+                    num_question_show=practice_mode_instance.num_questions,
+                    question=question,
+                    score=1 if user_answer == question.answer.strip() else 0,
+                    user_answer=user_answer,
+                )
+                results.append(result)
+
+
+            return JsonResponse({'message': 'Answers submitted successfully.', 'score': score})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=405)
 
 @csrf_exempt
 @login_required(login_url='home')
@@ -171,6 +226,7 @@ def practice_question_solo(request, practice_mode_instance_id):
         for question in questions:
             user_answer_key = f'user_answer_{question.id}'
             user_answer = request.POST.get(user_answer_key,'')
+            print(user_answer)
             # Check if the user's answer is correct
             if user_answer == question.answer:
                 score += 1
@@ -217,6 +273,63 @@ def solo_result(request, practice_mode_instance_id):
         print(result_details['solution'])
    
     return render(request, 'results/solo_result.html', {'results_details': results_details, 'total_score': total_score})
+
+
+@csrf_exempt
+@login_required(login_url='home')
+def practice_question_group_default(request, practice_mode_instance_id):
+    practice_mode_instance = PracticeMode.objects.get(id=practice_mode_instance_id)
+    time_limit = practice_mode_instance.num_questions * 30
+    questions = list(practice_mode_instance.questions.all())
+    random.shuffle(questions)
+    print(time_limit)
+    return render(request,'practiceQuestion/questionGroupDefault.html',{'questions': questions, 'practice_mode_instance_id': practice_mode_instance_id, 'time_limit': time_limit})
+
+
+@csrf_exempt
+@login_required(login_url='home')
+def submit_group_answers(request):
+    if request.method == 'POST':
+        try:
+            user_data = json.loads(request.body.decode('utf-8'))
+            practice_mode_instance_id = user_data.pop('practice_mode_instance_id', None)
+            practice_mode_instance =  PracticeMode.objects.get(id=practice_mode_instance_id)
+            time_limit = practice_mode_instance.num_questions * 30
+            questions = list(practice_mode_instance.questions.all())
+            random.shuffle(questions)
+
+            score = 0
+            result_sum = 0
+            results = []
+
+            user_answers_values = user_data.get('user_answers', {})
+            for question in questions:
+                user_answer_key = f'{question.id}'
+                user_answer = user_answers_values.get(user_answer_key, '')
+
+                if user_answer == question.answer:  
+                    score += 1
+
+                # Save the result
+                result = ResultPractice.objects.create(
+                    user=request.user,
+                    topic_show=practice_mode_instance,
+                    num_question_show=practice_mode_instance.num_questions,
+                    question=question,
+                    score=1 if user_answer == question.answer.strip() else 0,
+                    user_answer=user_answer,
+                )
+                results.append(result)
+                result_sum += result.score
+                players = ResultPractice.objects.filter(topic_show=practice_mode_instance).values('user__email').distinct()
+            print(players)
+            print(result_sum)
+            return JsonResponse({'message': 'Answers submitted successfully.', 'result_sum': result_sum})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=405)
+
 @csrf_exempt
 @login_required(login_url='home')
 def practice_question_group(request,practice_mode_instance_id):
@@ -334,7 +447,7 @@ def actual_quiz(request, id):
         option_b = request.POST.get('option_b')
         option_c = request.POST.get('option_c')
         answer = request.POST.get('answer')
-        solution = request.POST.get('solution')
+        solution = request.FILES.get('solution')
 
         # Create ActualQuiz instance associated with the QuizSetting
         actual_quiz = ActualQuiz.objects.create(
@@ -359,6 +472,65 @@ def done_create_quiz(request,id):
     answers = ActualQuiz.objects.filter(quiz_setting=quiz_setting)
     return render(request,'profPage/done_create_quiz.html', {'quiz_setting': quiz_setting, 'answers': answers})
 
+@csrf_exempt
+@login_required(login_url='home')
+def quiz_form_prof(request, id):
+    quiz_setting = QuizSetting.objects.get(pk=id)
+    current_datetime = timezone.localtime(timezone.now(), pytz.timezone('Asia/Manila'))
+    quiz_start_datetime = timezone.make_aware(
+        datetime.combine(quiz_setting.select_data, quiz_setting.start_time),
+        timezone.get_current_timezone()
+    )
+    quiz_end_datetime = timezone.make_aware(
+        datetime.combine(quiz_setting.select_data, quiz_setting.end_time),
+        timezone.get_current_timezone()
+    )
+    current_time_formatted = current_datetime.strftime('%Y-%m-%d %I:%M:%S %p')
+    quiz_start_time_formatted = quiz_start_datetime.strftime('%Y-%m-%d %I:%M:%S %p')
+    quiz_end_time_formatted = quiz_end_datetime.strftime('%Y-%m-%d %I:%M:%S %p')
+    print("Current Datetime:", current_time_formatted)
+    print("Quiz Start Datetime:", quiz_start_time_formatted)
+    print("Quiz End Datetime:", quiz_end_time_formatted)
+    if quiz_start_datetime <= current_datetime <= quiz_end_datetime:
+        answers = ActualQuiz.objects.filter(quiz_setting=quiz_setting)
+        time_limit = len(answers) * quiz_setting.question_timer
+    else:
+        return redirect('quiz-not-available', id=id)
+    return render(request, 'profPage/question_form.html', {'quiz_setting': quiz_setting, 'questions': answers, 'time_limit': time_limit, 'id':id})
+
+@csrf_exempt
+@login_required(login_url='home')
+def submit_prof_answers(request):
+    if request.method == 'POST':
+        try:
+            user_data = json.loads(request.body.decode('utf-8'))
+            practice_mode_instance_id = user_data.pop('practice_mode_instance_id', None)
+            quiz_setting = QuizSetting.objects.get(pk=practice_mode_instance_id)
+            user_answers_values = user_data.get('user_answers', {})
+            answers = ActualQuiz.objects.filter(quiz_setting=quiz_setting)
+            time_limit = len(answers) * quiz_setting.question_timer
+            score = 0
+            result_sum = 0
+            results = []
+            for answer in answers:
+                user_answer_key = f'{answer.id}'
+                user_answer = user_answers_values.get(user_answer_key, '')
+                if user_answer == answer.answer:
+                    score += 1
+                result_a = ResultActual.objects.create(
+                    user=request.user,
+                    quiz_setting=quiz_setting,
+                    question=answer,
+                    score=1 if user_answer == answer.answer else 0,
+                    user_answer=user_answer,
+                )
+                result_sum += result_a.score
+                results.append(result_a)
+            return JsonResponse({'message': 'Answers submitted successfully.',})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=405)
 @login_required(login_url='home')
 def link_actual_quiz(request, id):
     quiz_setting = QuizSetting.objects.get(pk=id)
