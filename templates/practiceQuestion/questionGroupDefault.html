@@ -48,12 +48,12 @@
                 {% endautoescape %}
             </div>
             <div class="choices">
-                <input type="radio" id="answer{{ question.id }}A" name="answer_{{ question.id }}" value="{{ question.option_a }}">
+                <input type="radio" id="answer{{ question.id }}A" name="answer_{{ question.id }}" value="{{ question.option_a }}" required>
                 <label class="mathlive" for="answer{{ question.id }}A">{{ question.option_a }}</label> 
-                <input type="radio" id="answer{{ question.id }}B" name="answer_{{ question.id }}" value="{{ question.option_b }}">
+                <input type="radio" id="answer{{ question.id }}B" name="answer_{{ question.id }}" value="{{ question.option_b }}" required>
                 <label class="mathlive" for="answer{{ question.id }}B">{{ question.option_b }}</label> 
-                <input type="radio" id="answer{{ question.id }}C" name="answer_{{ question.id }}" value="{{ question.option_c }}">
-                <label class="mathlive" for="answer{{ question.id }}C">{{ question.option_c }}</label> 
+                <input type="radio" id="answer{{ question.id }}C" name="answer_{{ question.id }}" value="{{ question.option_c }}" required>
+                <label class="mathlive" for="answer{{ question.id }}C" >{{ question.option_c }}</label> 
             </div>
         </div>
     </div>

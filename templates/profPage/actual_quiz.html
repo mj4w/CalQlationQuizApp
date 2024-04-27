@@ -24,8 +24,7 @@
             <label for="mathInput">Math Equation Generator:</label>
             <math-field id="formula" style="display: block;">
             </math-field>                
-            <textarea class="output" id="latex" autocapitalize="off" autocomplete="off"
-            autocorrect="off" style="display: none;" spellcheck="false" name="add_equation" required></textarea>
+            <input type="hidden" id="latex" name="add_equation">
 
         </div>
     
@@ -38,17 +37,25 @@
     
         <div class="form-group choices">
             <label for="choice1">A.</label>
-            <input type="text" id="choice1" name="option_a" required>
+            <math-field id="formula1" style="display: block;">
+            </math-field>                
+            <input type="hidden" id="latex1" name="option_a">
     
             <label for="choice2">B.</label>
-            <input type="text" id="choice2" name="option_b" required>
+            <math-field id="formula2" style="display: block;">
+            </math-field>                
+            <input type="hidden" id="latex2" name="option_b">
     
             <label for="choice3">C.</label>
-            <input type="text" id="choice3" name="option_c" required>
+            <math-field id="formula3" style="display: block;">
+            </math-field>                
+            <input type="hidden" id="latex3" name="option_c">
         </div>
         <div>
             <label for="correct">Correct Answer</label>
-            <input type="text" id="correct" name="answer" placeholder="type the full answer here not the choices!" required/>
+            <math-field id="formula4" style="display: block;">
+            </math-field>                
+            <input type="hidden" id="latex4" name="answer">
         </div>
         <div>
             <label for="solution">Put Solution Here</label>
@@ -83,6 +90,49 @@
     
 </script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const formulaInput = document.getElementById('formula');
+        const latexInput = document.getElementById('latex');
+    
+        formulaInput.addEventListener('change', function() {
+            latexInput.value = formulaInput.latex();
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const formulaInput1 = document.getElementById('formula1');
+        const latexInput1 = document.getElementById('latex1');
+    
+        formulaInput1.addEventListener('change', function() {
+            latexInput1.value = formulaInput1.latex();
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const formulaInput2 = document.getElementById('formula2');
+        const latexInput2 = document.getElementById('latex2');
+    
+        formulaInput2.addEventListener('change', function() {
+            latexInput.value = formulaInput2.latex();
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const formulaInput3 = document.getElementById('formula3');
+        const latexInput3 = document.getElementById('latex3');
+    
+        formulaInput3.addEventListener('change', function() {
+            latexInput3.value = formulaInput3.latex();
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const formulaInput4 = document.getElementById('formula4');
+        const latexInput4 = document.getElementById('latex4');
+    
+        formulaInput4.addEventListener('change', function() {
+            latexInput4.value = formulaInput4.latex();
+        });
+    });
+</script>
+
+<script>
     const mf = document.getElementById("formula");
     const latex = document.getElementById("latex");
 
@@ -95,6 +145,74 @@
 
     latex.addEventListener("input", (ev) => 
         mf.setValue(
+        ev.target.value, 
+        {silenceNotifications: true}
+        )
+    );
+
+    const mf1 = document.getElementById("formula1");
+    const latex1 = document.getElementById("latex1");
+
+    mf1.addEventListener("input",(ev) => latex1.value = mf1.value);
+
+    latex1.value = mf1.value;
+
+    // Listen for changes in the "latex" text field, 
+    // and reflect its value in the mathfield.
+
+    latex1.addEventListener("input", (ev) => 
+        mf1.setValue(
+        ev.target.value, 
+        {silenceNotifications: true}
+        )
+    );
+
+    const mf2 = document.getElementById("formula2");
+    const latex2 = document.getElementById("latex2");
+
+    mf2.addEventListener("input",(ev) => latex2.value = mf2.value);
+
+    latex2.value = mf2.value;
+
+    // Listen for changes in the "latex" text field, 
+    // and reflect its value in the mathfield.
+
+    latex2.addEventListener("input", (ev) => 
+        mf2.setValue(
+        ev.target.value, 
+        {silenceNotifications: true}
+        )
+    );
+
+    const mf3 = document.getElementById("formula3");
+    const latex3 = document.getElementById("latex3");
+
+    mf3.addEventListener("input",(ev) => latex3.value = mf3.value);
+
+    latex3.value = mf3.value;
+
+    // Listen for changes in the "latex3" text field, 
+    // and reflect its value in the mathfield.
+
+    latex3.addEventListener("input", (ev) => 
+        mf3.setValue(
+        ev.target.value, 
+        {silenceNotifications: true}
+        )
+    );
+
+    const mf4 = document.getElementById("formula4");
+    const latex4 = document.getElementById("latex4");
+
+    mf4.addEventListener("input",(ev) => latex4.value = mf4.value);
+
+    latex4.value = mf4.value;
+
+    // Listen for changes in the "latex4" text field, 
+    // and reflect its value in the mathfield.
+
+    latex4.addEventListener("input", (ev) => 
+        mf4.setValue(
         ev.target.value, 
         {silenceNotifications: true}
         )

@@ -187,6 +187,12 @@ img{
     top: -3px;
     font-size: 15px;
 }
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #00000000 inset !important;
+    -webkit-text-fill-color: white !important;
+}
 
 .check{
     font-size: 15px;

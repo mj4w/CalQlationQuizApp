@@ -449,7 +449,10 @@ def actual_quiz(request, id):
         option_c = request.POST.get('option_c')
         answer = request.POST.get('answer')
         solution = request.FILES.get('solution')
-
+        print(add_equation)
+        print(option_a)
+        print(option_b)
+        print(answer)
         # Create ActualQuiz instance associated with the QuizSetting
         actual_quiz = ActualQuiz.objects.create(
             user=request.user,
@@ -662,7 +665,7 @@ def not_available(request,id):
         timezone.get_current_timezone()
     )
     if quiz_start_datetime <= current_datetime <= quiz_end_datetime:
-        return redirect('link-actual-quiz', id=id)
+        return redirect('quiz-form', id=id)
     return render(request,'notavailable/not_available_quiz.html',{'quiz_setting': quiz_setting})
 
 def about_us(request):
