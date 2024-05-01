@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <!-- Default theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    
     <title>Calqlated</title>
   
 </head>
@@ -33,6 +34,9 @@
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'about-us' %}">About Us</a></li>
                 <li><a href="{% url 'contact-us' %}">Contact</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'logout' %}" style="color:red">Logout</a></li>
+                {% endif %}
             </ul>
         </nav>
         <div class="info">
@@ -41,9 +45,30 @@
             <br>and strategy, every equation 
             <br>is a challenge, 
             <br>every solution is a key to victory.</p>
+            {% if request.user.is_authenticated %}
+            {% if ping == 1%}
+            <a href="{% url 'student-home' %}">
+                <button type="button" class="btnLogin-popups">
+                    Go Back
+                </button>
+                
+            </a>
+            {% endif %}
+            {% if ping == 2 %}
+            <a href="{% url 'professor-home' %}">
+                <button type="button" class="btnLogin-popups">
+                    Go Back
+                </button>
+                
+            </a>
+            {% endif %}
+            
+            {% else %}
             <button type="button" class="btnLogin-popup">
                 Get Started !
             </button>
+            {% endif %}
+
         </div>
         <div class="img-box">
             <img src="{% static 'img/wizard.png' %}" class="object" data-value="1">
@@ -59,8 +84,8 @@
                         <label>Email</label>
                     </div>
                     <div class="input-box">
-                        <span class="icon"><i class="fas fa-lock"></i></span>
                         {{form_login.password}}
+                        <i class="toggle-password fas fa-eye-slash" onclick="togglePasswordVisibility()"></i>
                         <label>Password</label>
                     </div>
                     <div class="check">

@@ -81,10 +81,12 @@ def home(request):
                     if user is not None:
                         login(request, user)
                         if 'bulsu.edu.ph' in user.email and any(char.isdigit() for char in user.email):
-                            messages.success(request,'You have successfully logged in')
+                            messages.success(request,'You have successfully logged in as Student')
+                            request.session['user_type'] = 'student'
                             return redirect('student-home')
                         elif 'bulsu.edu.ph' in user.email:
-                            messages.success(request,'You have successfully logged in')
+                            messages.success(request,'You have successfully logged in as Professor')
+                            request.session['user_type'] = 'professor'
                             return redirect('professor-home')
                         messages.error(request, 'Login Error: Your Email is not a bulsu acc.')
                         return redirect('home')
@@ -97,9 +99,14 @@ def home(request):
         except SuspiciousOperation as e:
             messages.error(request, f'CSRF Verification Failed: {str(e)}')
             return redirect('home')
+    ping = 0
+    if request.session.get('user_type') == 'student':
+        ping = 1
+    elif request.session.get('user_type') == 'professor':
+        ping = 2
     form_register = RegisterForm()
     form_login = LoginForm()
-    return render(request, 'home.html', {'form_login': form_login, 'form_register': form_register})
+    return render(request, 'home.html', {'form_login': form_login, 'form_register': form_register, 'ping': ping})
 
 @login_required(login_url='home')
 def student_home(request):
@@ -675,4 +682,5 @@ def contact_us(request):
 
 def log_out(request):
     logout(request)
+    messages.success(request,'Thanks for visiting!')
     return redirect('home')

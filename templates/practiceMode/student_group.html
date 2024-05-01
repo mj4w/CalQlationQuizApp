@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="{% static 'css/practiceMode/practiceMode.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="icon" href="{% static 'img/logo.png' %}">
   <title>Student - Select</title>
 </head>
@@ -18,6 +19,12 @@
   </header>
   <div id="solo">
     <p>GROUP</p>
+  </div>
+  <div class="warning-section">
+    <div class="warning-icon" title="Warning!">
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <span class="warning-message">• All questions are required to be answered. <br> <br> • Please be aware that you have 30 seconds to answer every question</span>
   </div>
   <form method="POST">
     {% csrf_token %}
@@ -46,11 +53,16 @@
     </label>
 
 
+
       <div class="section">
         <button id="startButton" type="submit">Start</button>
       </div>
     </div>
   </form>
+  <nav class="bottom-nav">
+    <a href="{% url 'home' %}"><i class="fas fa-home"></i></a> <!-- Home icon -->
+    <a href="{% url 'student-home' %}" onclick="window.history.back();"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+  </nav>
 
 </body>
 </html>

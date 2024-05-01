@@ -10,6 +10,7 @@ body {
     background-repeat: no-repeat;
 }
   
+ 
 header {
     padding: 20px;
     text-align: center;
@@ -77,6 +78,23 @@ header {
     color: #fff;
   }
   
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ade8f4;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .bottom-nav a {
+    display: inline-block;
+    margin: 0 10px; 
+    color: #333; 
+    font-size: 20px; 
+    text-decoration: none; 
+  }
+  
 .btn:hover{
     background-color: #0077b6;
   }
@@ -91,12 +109,12 @@ header {
     }
 
     #practice-mode p {
-        font-size: 30px; 
+        font-size: 20px; 
     }
 
     .btn {
-        font-size: 25px; 
+        font-size: 14px; 
         padding: 10px 20px;
-        width: 100%; 
+        width: 150px; 
     }
 }

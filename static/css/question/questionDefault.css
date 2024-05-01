@@ -12,27 +12,56 @@ body {
     padding: 0;
 }
 
-#timer {
+
+.timer {
     font-size: 20px;
-    margin-top: 10px;
+    color: #dddf00;
+    border: 2px solid #dddf00;
+    border-radius: 30px;
+    text-align: center;
+    padding: 10px;
+    font-family: "Orbitron", sans-serif;
+    width: 100px; /* Set a fixed width for the timer */
+    position: absolute;
+    margin-top: 20px;
+    top: 0px;
+    right: 275px;
+}
+
+.hint {
+    display: none; 
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 24px;
     color: #fff;
-    text-align: center; /* Center the timer horizontally */
-    position: fixed;
-    top: 0;
-    left: 50%; /* Move to the center horizontally */
-    transform: translateX(-50%); 
-    width: 100%;
-    padding: 10px 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ade8f4;
+    background-color: #3498db;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 20px;
+    width: 600px;
+    height: auto;
     overflow: hidden;
+    padding: 10px 20px;
+    font-size: 30px; 
+    z-index: 1;
+  }
+
+  .student-reminder {
+    background-color: #dddf00;
+    color: #333;
+    padding: 15px;
+    width: 615px;
+    border-radius: 10px;
+    margin-top: 5px;
+    overflow: hidden;
+    white-space: nowrap;
   }
   
-  #timer-bar {
-    height: 20px;
-    background-color: #ff002b;
-    width: 100%;
-    transition: width 1s linear;
-  } 
+  .student-reminder p {
+    margin: 0;
+    animation: marquee 10s linear infinite;
+  }
   
   @keyframes timerAnimation {
     0% {
@@ -40,6 +69,18 @@ body {
     }
   }  
   
+    
+  .image-container {
+    position: relative;
+  }
+  
+  .hint-image {
+    width: 60px;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    bottom: 73px;
+  }
 #quiz-container {
     max-width: 600px;
     margin: 50px auto;
@@ -133,9 +174,52 @@ button:hover {
     background-color: #2980b9;
 }
 
+.student-reminder {
+    background-color: #dddf00;
+    color: #333;
+    padding: 15px;
+    width: 615px;
+    border-radius: 10px;
+    margin-top: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  .student-reminder p {
+    margin: 0;
+    animation: marquee 10s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
 @media only screen and (max-width: 768px) {
     body {
         padding: 20px;
+    }
+
+    .timer {
+        width: auto;
+        padding: 8px;
+        font-size: 16px;
+        right: 50px;
+        left: unset; 
+        top: 25px;
+        border-radius: 15px;
+      }
+
+    .hint{
+        width: 90%;
+        height: auto;
+        font-size: 15px;
+        margin-bottom: 20px;
+        padding: 15px;
     }
 
     #quiz-container {
@@ -144,13 +228,17 @@ button:hover {
         padding: 20px;
         border-radius: 10px;
     }
+
+    .student-reminder{
+        max-width: 90%;
+    }
   
     .question {
         width: 90%;
-        height: 40px;
+        height: auto;
         font-size: 15px;
         margin-bottom: 20px;
-        padding: 13px;
+        padding: 15px;
     }
   
     .choices label {
@@ -158,6 +246,17 @@ button:hover {
         height: auto;
         font-size: 15px;
         padding: 10px; 
+    }
+
+    .link-container{
+        width: 370px;
+        height: 35px;
+        line-height: 40px;
+        border-radius: 20px;
+    }
+
+    .icon-link i{
+        margin-top: 5px;
     }
   
     button {
@@ -167,32 +266,6 @@ button:hover {
         font-size: 14px;
     }
 }
-.hint-container {
-    position: relative;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    color: #fff;
-    border: 2px solid #ade8f4;
-    background-color: #3498db;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
-    border-radius: 20px;
-    width: 600px;
-    height: 150px;
-    overflow: hidden;
-    padding: 10px 20px;
-    backdrop-filter: blur(10px);
-    font-size: 20px; 
-  }
-  
-  .hint img {
-    width: 80px;
-    height: auto;
-    cursor: pointer;
-  }
 
 
   .link-box {
@@ -220,4 +293,21 @@ button:hover {
     content: "";
     display: table;
     clear: both;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #ade8f4;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.bottom-nav a {
+  display: inline-block;
+  margin: 0 10px; 
+  color: #333; 
+  font-size: 20px; 
+  text-decoration: none; 
 }

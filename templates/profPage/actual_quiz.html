@@ -65,7 +65,6 @@
     </form>
     <button class="done-btn"><a href="{% url 'get-link' id=quiz_setting.id  %}">Done</a></button>
     
-
 </div>
 <script type="module">
     import { convertLatexToMarkup }
@@ -218,5 +217,9 @@
         )
     );
 </script>
+<nav class="bottom-nav">
+    <a href="{% url 'home' %}"><i class="fas fa-home"></i></a> <!-- Home icon -->
+    <a href="{% url 'create-quiz' %}" onclick="window.history.back();"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+</nav>
 </body>
 </html>

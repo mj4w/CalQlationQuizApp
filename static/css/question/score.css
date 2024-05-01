@@ -9,6 +9,25 @@ body {
     margin: 0;
     padding: 0;
   }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ade8f4;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .bottom-nav a {
+    display: inline-block;
+    margin: 0 10px; 
+    color: #333; 
+    font-size: 20px; 
+    text-decoration: none; 
+  }
+
+  
   
   #score-container {
     text-align: center;

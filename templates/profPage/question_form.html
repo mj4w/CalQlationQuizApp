@@ -7,13 +7,12 @@
     <title>Question | ProfCreate </title>
     <link rel="stylesheet" href="{% static 'css/question/quiz_form.css' %}">
     <link rel="icon" href="{% static 'img/logo.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive-static.css" />
 </head>
 <body>
+    <div id="timerDisplay" class="timer"></div>
     <div id="quiz-container">
-        <div id="timer">
-            <div id="timer-bar"></div>
-        </div>
     {% for question in questions %}
     <div class="question-container" data-question-id="{{ question.id }}">
         <!-- <h1>{{practice_mode_instance_id}}</h1> -->
@@ -56,48 +55,34 @@
     <input type="hidden" id="practiceModeInstanceId" value="{{ id }}">
     <div id="result"></div>
 </div>
-
+<nav class="bottom-nav">
+    <a href="{% url 'professor-home' %}" onclick="window.history.back();"><i class="fa-regular fa-circle-xmark"></i></a>
+</nav>
 <script src="{% static 'js/question/questionProf.js' %}"></script>
 <script>
-    // Set the total time for the quiz in seconds
-    var totalTime = {{ time_limit }}; // Replace with the correct variable from Django
-    console.log(totalTime);
-    
-    // Variable to store the remaining time
-    var timeRemaining = totalTime;
-    
-    // Function to start the timer
-    function startTimer() {
-        var timerBar = document.getElementById('timer-bar');
-    
-        // Update the timer every second
-        var timerInterval = setInterval(function () {
-            timeRemaining -= 1; // Decrease by 1 second
-    
-            // Update the timer bar width
-            var percentageRemaining = (timeRemaining / totalTime) * 100;
-            var timerWidth = 100 - percentageRemaining; // Adjust to make the bar move from right to left
-            timerBar.style.width = timerWidth + '%';
-    
-            console.log("timeRemaining:", timeRemaining); // Debugging statement
-    
-            // Check if the time is up
-            if (timeRemaining <= 0) {
-                clearInterval(timerInterval);
-    
-                console.log("Time's up! Redirecting..."); // Debugging statement
-    
-                // Redirect to another page after the timer ends
-                window.location.href = '/group-students'; // Replace with the actual URL
-    
-                // You can also submit the quiz or perform other actions if needed
-                // submitQuiz();
-            }
-        }, 1000); // Update every 1000 milliseconds (1 second)
+    // Countdown Timer
+    const quizDurationSeconds = {{  time_limit }}; // Example: 100 seconds
+    const timerDisplay = document.getElementById('timerDisplay');
+  
+    function updateTimerDisplay(remainingTime) {
+      const minutes = Math.floor(remainingTime / 60);
+      const seconds = remainingTime % 60;
+      timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     }
     
-    // Call the startTimer function when the page loads
-    startTimer();
+    let remainingTime = quizDurationSeconds;
+  
+    const timerInterval = setInterval(() => {
+      remainingTime--;
+  
+      updateTimerDisplay(remainingTime);
+  
+      if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+        timerDisplay.textContent = 'Time Up!';
+        submitQuiz(); // Trigger quiz submission when time is up
+      }
+    }, 1000); // Update timer every second
     </script>
     <script type="module">
     import { convertLatexToMarkup }

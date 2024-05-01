@@ -6,12 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/result/resultAll.css' %}">
+
     <link rel="icon" href="{% static 'img/logo.png' %}">
                                     
     <title>Leaderboards</title>
 </head>
 <style>
-
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #ade8f4;
+        text-align: center;
+        padding: 10px 0;
+    }
+    
+    .bottom-nav a {
+        display: inline-block;
+        margin: 0 10px; 
+        color: #333; 
+        font-size: 20px; 
+        text-decoration: none; 
+    }
     @media (min-width: 768px) and (max-width: 1024px) {
         .section-container {
             justify-content: center;
@@ -129,6 +145,9 @@
         {% endfor %}
     </div>
     {% endfor %}
-
+    <nav class="bottom-nav">
+        <a href="{% url 'home' %}"><i class="fas fa-home"></i></a> <!-- Home icon -->
+        <a href="{% url 'professor-home' %}" onclick="window.history.back();"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+    </nav>
 </body>
 </html>

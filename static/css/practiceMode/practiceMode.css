@@ -228,3 +228,56 @@ input:focus + .slider {
 input:checked + .slider:before {
     transform: translateX(20px);
 }
+
+/* CSS for warning section, icon, and message */
+.warning-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px; /* Add spacing below the warning section */
+    position: relative;
+  }
+  
+  .warning-icon {
+    color: red;
+    font-size: 24px;
+    cursor: pointer; /* Change cursor to pointer */
+  }
+  
+  .warning-message {
+    display: none; /* Initially hide the warning message */
+    background-color: #f44336;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    position: absolute;
+    top: 30px; /* Position the message below the warning icon */
+    left: 50%; /* Center the message horizontally */
+    transform: translateX(-50%);
+    z-index: 1;
+    width: 250px;
+  }
+  
+  /* Show the warning message on hover */
+  .warning-icon:hover + .warning-message {
+    display: block;
+  }
+  
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ade8f4;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .bottom-nav a {
+    display: inline-block;
+    margin: 0 10px; 
+    color: #333; 
+    font-size: 20px; 
+    text-decoration: none; 
+  }

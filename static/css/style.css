@@ -19,6 +19,7 @@
     position: relative;
 }
 
+
 nav{
     width: 90%;
     margin: auto;
@@ -174,6 +175,15 @@ img{
     padding: 0 30px 0 6px;
 }
 
+input:-webkit-autofill {
+    -webkit-text-fill-color: white !important; 
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input:-webkit-autofill:focus {
+    background-color: transparent !important; 
+}
+
 .input-box .icon{
     position: absolute;
     color: #fff;
@@ -182,16 +192,29 @@ img{
     line-height: 55px;
 }
 
+.toggle-password {
+    position: absolute;
+    color: #fff;
+    top: 20px;
+    right: 9px;
+    font-size: 17px;
+    line-height: 55px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.toggle-password.fa-eye-slash:before {
+    content: '\f070';
+}
+
+.toggle-password.fa-eye:before {
+    content: '\f06e';
+}
+
 .input-box input:focus~label,
 .input-box input:valid~label{
     top: -3px;
     font-size: 15px;
-}
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px #00000000 inset !important;
-    -webkit-text-fill-color: white !important;
 }
 
 .check{
@@ -270,6 +293,12 @@ select:-webkit-autofill {
     cursor: pointer;
 }
 
+.close-icon i{
+    position: relative; 
+    left: 10px;
+    top: 5px;
+}
+
 .container .main-box.login{
     transition: transform .20s ease;
     transform: translateX(0);
@@ -311,6 +340,30 @@ select:-webkit-autofill {
     z-index: 2;
 }
 
+.btnLogin-popups {
+    --primary-color: #5cbdfd;
+    --hover-color: #0077b6;
+    font-family: 'Nova Square', sans-serif;
+    color: #fff;
+    box-sizing: border-box;
+    border: 2px solid #ade8f4;
+    border-radius: 20px;
+    padding: 1em 1.8em;
+    background: var(--primary-color);
+    display: flex;
+    transition: 0.2s background;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 30px;
+    cursor: pointer;
+}
+  
+.btnLogin-popups:hover {
+    background-color: var(--hover-color);
+}
+
 .bar {
     width: 20px; 
     height: 3px;
@@ -340,7 +393,8 @@ select:-webkit-autofill {
 
 @media only screen and (max-width: 768px) {
     .logo {
-        width: 100px; 
+        margin-left: 5px;
+        width: 70px; 
     }
 
     .img-box {
@@ -348,17 +402,17 @@ select:-webkit-autofill {
     }
 
     .info h1 {
-        font-size: 40px; 
+        font-size: 30px; 
+        line-height: 40px;
     }
 
     .info p {
         font-size: 16px;
-        margin-bottom: 20px;
+        line-height: 24px; 
     }
 
     .btnLogin-popup {
-        margin: auto;
-        font-size: 13px; 
+        font-size: 8px; 
         padding: 0.8em 1.5em;
     }
 
@@ -374,7 +428,7 @@ select:-webkit-autofill {
     }
 
     .main-box h1 {
-        font-size: 40px;
+        font-size: 20px;
         line-height: 40px;
     }
 
@@ -384,24 +438,33 @@ select:-webkit-autofill {
     }
 
     .input-box label {
-        font-size: 20px;
+        font-size: 10px;
+    }
+    .btnLogin-popups {
+        margin: auto;
+        font-size: 13px; 
+        padding: 0.8em 1.5em;
     }
 
     .input-box input {
-        font-size: 20px;
+        font-size: 10px;
     }
 
     .input-box .icon {
-        font-size: 20px;
+        font-size: 10px;
+    }
+
+    .toggle-password{
+        font-size: 10px;
     }
 
     .input-box input:focus~label,
     .input-box input:valid~label{
-    font-size: 15px;
+    font-size: 10px;
 }
 
     .check {
-        font-size: 15px;
+        font-size: 10px;
         margin: 5px 0 10px;
     }
 
@@ -415,22 +478,23 @@ select:-webkit-autofill {
     }
 
     .main-btn {
-        font-size: 20px; 
+        font-size: 10px; 
         height: 30px; 
     }
 
     .main-box.register h1 {
-        font-size: 40px;
-        margin-top: 100px;
+        font-size: 20px;
+        margin-top: -150px;
+        line-height: 30px; 
     }
 
     .register {
-        font-size: 15px; 
+        font-size: 10px; 
         margin: 10px 0; 
     }
 
     .register p a {
-        font-size: 15px; 
+        font-size: 10px; 
         margin-top: 5px;
     }
 
@@ -480,7 +544,6 @@ select:-webkit-autofill {
         padding: 15px;
         border-bottom: 1px solid #fff;
         width: 90%;
-        font-size: 20px;
     }
     
     .burger-menu.active .bar:nth-child(1) {
@@ -506,4 +569,8 @@ select:-webkit-autofill {
     .close-button.active span:nth-child(3) {
         transform: rotate(-45deg) translate(-5px, -6px);
     }
+    .close-icon i{
+        right: 10px;
+    }
+
 }

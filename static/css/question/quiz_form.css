@@ -39,6 +39,22 @@ body {
       width: 0; /* Initial width of the timer bar */
     }
   }  
+
+  
+.timer {
+    font-size: 20px;
+    color: #dddf00;
+    border: 2px solid #dddf00;
+    border-radius: 30px;
+    text-align: center;
+    padding: 10px;
+    font-family: "Orbitron", sans-serif;
+    width: 100px; /* Set a fixed width for the timer */
+    position: absolute;
+    margin-top: 20px;
+    top: 0px;
+    right: 275px;
+}
   
 #quiz-container {
     max-width: 600px;
@@ -137,6 +153,15 @@ button:hover {
     body {
         padding: 20px;
     }
+    .timer {
+        width: auto;
+        padding: 8px;
+        font-size: 16px;
+        right: 50px;
+        left: unset; 
+        top: 25px;
+        border-radius: 15px;
+      }
 
     .photo-container {
         width: 92%; 
@@ -224,3 +249,20 @@ button:hover {
     display: block;
     margin: 0 auto; /* Center the image horizontally */
 }
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ade8f4;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .bottom-nav a {
+    display: inline-block;
+    margin: 0 10px; 
+    color: #333; 
+    font-size: 20px; 
+    text-decoration: none; 
+  }

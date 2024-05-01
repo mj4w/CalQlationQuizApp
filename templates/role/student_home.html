@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
   <!-- Default theme -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <title>Calqlated</title>
 </head>
 <body>
@@ -27,6 +28,10 @@
     <a href="{% url 'solo-student' %}"><button class="btn">Solo</button></a>
     <a href="{% url 'group-student' %}"><button class="btn">Group</button></a>
   </div>
+
+  <nav class="bottom-nav">
+    <a href="{% url 'home' %}"><i class="fas fa-home"></i></a> <!-- Home icon -->
+  </nav>
 </body>
    <!-- JavaScript -->
    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>

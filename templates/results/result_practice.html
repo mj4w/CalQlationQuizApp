@@ -8,6 +8,7 @@
   <link rel="icon" href="{% static 'img/logo.png' %}">
   <link rel="stylesheet" href="{% static 'css/question/score.css' %}">
   <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive-static.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 <style>
@@ -56,7 +57,7 @@
 </style>
 <div id="score-container">
     <p>Your final score is: <span id="score">{{ total_score }} </span></p>
-    <p style="text-align: right;"><a href="{% url 'student-home' %}" style="color: #fff; background-color:green;text-decoration:none; padding: 10px 15px; border-radius:10px;">Go Back</a></p>
+    <!-- <p style="text-align: right;"><a href="{% url 'student-home' %}" style="color: #fff; background-color:green;text-decoration:none; padding: 10px 15px; border-radius:10px;">Go Back</a></p> -->
     <img src="{% static 'img/trophy.png' %}" alt="Trophy" id="trophy">
     <p id="congratulations">Congratulations! You've completed the quiz!</p>
     <div>
@@ -151,6 +152,10 @@
         </div>
     </div>
 </div>
+<nav class="bottom-nav">
+    <a href="{% url 'home' %}"><i class="fas fa-home"></i></a> <!-- Home icon -->
+    <a href="{% url 'student-home' %}" onclick="window.history.back();"><i class="fa-solid fa-arrow-rotate-left"></i></a>
+</nav>
 </body>
 <script>
   // Function to open a modal

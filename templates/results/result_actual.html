@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="{% static 'css/question/score.css' %}">
   <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive-static.css" />
   <link rel="icon" href="{% static 'img/logo.png' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <style>
     .leaderboard {
@@ -133,6 +134,10 @@
     </div>
 </div>
 {% endif %}
+<nav class="bottom-nav">
+    <a href="{% url 'home' %}"><i class="fas fa-home"></i></a> <!-- Home icon -->
+    <a href="{% url 'result-all' %}" onclick="window.history.back();"><i class="fa-solid fa-square-poll-vertical"></i></a>
+  </nav>
 </body>
 <script>
     // Function to open a modal
