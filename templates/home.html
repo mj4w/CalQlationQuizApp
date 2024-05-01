@@ -53,13 +53,18 @@
                 </button>
                 
             </a>
-            {% endif %}
-            {% if ping == 2 %}
+            {% elif ping == 2 %}
             <a href="{% url 'professor-home' %}">
                 <button type="button" class="btnLogin-popups">
                     Go Back
                 </button>
                 
+            </a>
+            {% else %}
+            <a href="http://127.0.0.1:8000/admin/">
+            <button type="button" class="btnLogin-popups">
+                Admin Connected !
+            </button>
             </a>
             {% endif %}
             
