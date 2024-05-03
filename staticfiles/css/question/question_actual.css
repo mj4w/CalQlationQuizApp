@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+
+body {
+    font-family: 'Nova Square', sans-serif;
+    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('/static/img/bg.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #quiz-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    opacity: 100%;
+    transition: opacity 1s ease-in-out;
+    text-align: center;
+  }
+  
+  .question-container {
+    margin-bottom: 20px;
+    opacity: 100%;
+    transition: opacity 1s ease-in-out;
+    background: transparent;
+  }
+  
+  .question {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column; 
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    color: #fff;
+    border: 2px solid #ade8f4;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+    border-radius: 20px;
+    width: 600px; /* Fixed width for the question container */
+    height: auto; /* Allow the container to adjust its height based on content */
+    padding: 10px 20px;
+    backdrop-filter: blur(10px);
+    font-size: 30px; /* Adjust this value as needed */
+  }
+  
+  .question p {
+    word-wrap: break-word;
+    max-width: 100%; /* Ensure the text doesn't overflow the container */
+  }
+  
+  .choices {
+    margin-top: 10px;
+  }
+  
+  .choices input[type="radio"] {
+    display: none;
+  }
+
+  .choices label {
+    display: block;
+    font-size: 30px;
+    font-family: 'Nova Square', sans-serif;
+    padding: 10px;
+    width: 620px;
+    height: 40px;
+    background-color: #3498db;
+    color: #fff;
+    border: 2px solid #ade8f4;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .choices label:hover {
+    background-color: #2980b9;
+  }
+
+  .choices input[type="radio"]:checked + label {
+    background-color: #023e8a;
+    color: #fff;
+  }
+  
+  
+  button {
+    font-family: 'Nova Square', sans-serif;
+    padding: 20px;
+    width: 150px;
+    background-color: #3498db;
+    border: 2px solid #ade8f4;
+    color: #fff;
+    border-radius: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+
+  }
+#timer {
+  font-size: 20px;
+  margin-top: 10px;
+  color: #fff;
+  text-align: center; /* Center the timer horizontally */
+  position: fixed;
+  top: 0;
+  left: 50%; /* Move to the center horizontally */
+  transform: translateX(-50%); 
+  width: 100%;
+  padding: 10px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+#timer-bar {
+  height: 20px;
+  background-color: #ff002b;
+  width: 100%;
+  transition: width 1s linear;
+} 
+
+.math-equation input {
+  display: block;
+  color: #fff;
+  border: 2px solid #ade8f4;
+  width: 640px;
+  height: 65px;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  background: transparent;
+  border-radius: 20px;
+  outline: none;
+  font-family: 'Urbanist', sans-serif; /* Use the specified font family */
+}
+
+.math-equation input::placeholder {
+  color: #fff; /* Adjust placeholder text color as needed */
+  text-align: center;
+  font-style: italic;
+}
+
+.photo-container {
+  display: block;
+  background: transparent;
+  border-radius: 20px;
+  border: 2px solid #ade8f4;
+  height: 200px;
+  width: 635px;
+  margin-bottom: 20px;
+  overflow: hidden; /* Ensure the image doesn't overflow the container */
+}
+
+.photo-container img {
+  object-fit: contain; /* Make the image cover the container while maintaining aspect ratio */
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0 auto; /* Center the image horizontally */
+}
+
+@media only screen and (max-width: 768px) {
+
+  #quiz-container {
+  max-width: 90%;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  }
+
+  .question {
+    width: 90%;
+    height: auto;
+    font-size: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+
+  .choices label {
+    width: 94%;
+    height: auto;
+    font-size: 15px;
+    padding: 10px; 
+  }
+
+  .math-equation input {
+    width: 103%;
+    height: auto;
+    font-size: 10px;
+    padding: 10px; 
+  }
+
+  .photo-container {
+    width: 92%; 
+    height: auto;
+    font-size: 15px;
+    padding: 10px; 
+  }
+
+  .photo-container img {
+    width: 150px; 
+    margin-top: 10px;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Nova Square', sans-serif;
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(232deg, rgba(0, 15, 30, 0.5), rgba(38, 33, 69, 0.5)), url('../../img/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.container {
+    text-align: center;
+}
+
+.message {
+    font-size: 24px;
+    color: #fff;
+}
+
+.goback {
+    text-decoration: underline;
+    color: #fff;
+}
+
+.goback:hover {
+    color: #0077b6;
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        background-attachment: fixed;
+    }
+
+    .message {
+        font-size: 15px;
+        text-align: center; 
+        padding: 20px; 
+    }
+}
