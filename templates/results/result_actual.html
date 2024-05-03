@@ -92,7 +92,7 @@
                 <span class="entry-data">{{forloop.counter}} </span>
                 <span class="entry-data mathlive">{{result_detail.add_text}} {{result_detail.add_equation}}</span>
                 {% if result_detail.user_answer == result_detail.correct_answer %}
-                <span style="color: green;" class="entry-data">{{result_detail.user_answer}}</span>
+                <span style="color: green;" class="entry-data mathlive">{{result_detail.user_answer}}</span>
                 {% else %}
                 <span style="color: red;" class="entry-data mathlive">{{result_detail.user_answer}}</span>
                 {% endif %}

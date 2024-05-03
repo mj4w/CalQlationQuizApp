@@ -35,7 +35,7 @@
                 <li><a href="{% url 'about-us' %}">About Us</a></li>
                 <li><a href="{% url 'contact-us' %}">Contact</a></li>
                 {% if request.user.is_authenticated %}
-                <li><a href="{% url 'logout' %}" style="color:red">Logout</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% endif %}
             </ul>
         </nav>
