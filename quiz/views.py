@@ -621,7 +621,7 @@ def link_actual_quiz(request, id):
 def result_actual_quiz(request,id):
     quiz_setting = QuizSetting.objects.get(pk=id)
     questions = ActualQuiz.objects.filter(resultactual__user=request.user,resultactual__quiz_setting=quiz_setting).distinct()
-    print(questions)
+    total_question = len(questions)
     results_details = []
     total_score = 0
     for question in questions:
@@ -646,7 +646,8 @@ def result_actual_quiz(request,id):
         results_details.append(result_details)
         print(results_details)
         print(latest_result.score)
-    return render(request,'results/result_actual.html',{'results_details':results_details,'total_score':total_score,'quiz_setting':quiz_setting})
+        
+    return render(request,'results/result_actual.html',{'results_details':results_details,'total_score':total_score,'quiz_setting':quiz_setting,'total_question': total_question})
 
 def result_all_actual(request):
     result_actual = ResultActual.objects.all()
