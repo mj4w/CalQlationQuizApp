@@ -20,6 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
 from django.http import JsonResponse
 import json
+import re
 
 
 # professor & student
@@ -56,22 +57,35 @@ import json
 #     return render(request,'accounts/login.html',{'form':form})
 @csrf_exempt
 def home(request):
+    form_register = RegisterForm(request.POST or None)
     if "register" in request.POST:
-        try:
-            if request.method == 'POST':
-                form_register = RegisterForm(request.POST or None)
+        if request.method == 'POST':
+            form_register = RegisterForm(request.POST or None)
+            try:
                 if form_register.is_valid():
-                    user = form_register.save()
-                    # login(request, user)
-                    messages.success(request, 'You have been registered! Login Now!')
-                    return redirect('home')
+                    email = form_register.cleaned_data.get('email')
+                    print(email)
+                    if 'bulsu.edu.ph' in email:
+                        numeric_part = ''.join(char for char in email if char.isdigit())
+                        print(numeric_part)
+                        if len(numeric_part) > 10:
+                            messages.error(request, 'Login Error: Student ID must be a maximum of 10 digits.')
+                            return redirect('home')
+                        else:
+                            user = form_register.save()
+                            messages.success(request, 'You have been registered! Login Now!')
+                            return redirect('home')
+                    else:
+                        user = form_register.save()
+                        messages.success(request, 'You have been registered! Login Now!')
+                        return redirect('home')
                 else:
                     for field, errors in form_register.errors.items():
                         for error in errors:
                             messages.error(request, f"Registration Error: {field.capitalize()} - {error}")
-        except SuspiciousOperation as e:
-            messages.error(request, f'CSRF Verification Failed: {str(e)}')
-            return redirect('home')
+            except SuspiciousOperation as e:
+                messages.error(request, f'CSRF Verification Failed: {str(e)}')
+                return redirect('home')
     elif "login" in request.POST:
         try:
             if request.method == 'POST':
@@ -83,7 +97,7 @@ def home(request):
                     if user is not None:
                         login(request, user)
                         if 'bulsu.edu.ph' in user.email and any(char.isdigit() for char in user.email):
-                            if not username.isdigit() or len(username) > 10:
+                            if username.isdigit() or len(username) >= 10:
                                 messages.error(request,'Login Error: Student ID must be a maximum of 10 digits.')
                                 return redirect('home')
                             messages.success(request,'You have successfully logged in as Student')
