@@ -9,17 +9,26 @@ function prevQuestion() {
 
 function nextQuestion() {
   const totalQuestions = document.querySelectorAll('.question-container').length;
-  if (currentQuestion < totalQuestions - 1) {
-    showQuestion(currentQuestion + 1);
+  const currentQuestionContainer = document.querySelector(`.question-container:nth-child(${currentQuestion + 1})`);
+  const selectedChoice = currentQuestionContainer.querySelector('input[type="radio"]:checked');
+  
+  if (selectedChoice) {
+    if (currentQuestion < totalQuestions - 1) {
+      showQuestion(currentQuestion + 1);
+    } else {
+      submitQuiz();
+    }
   } else {
-    // If on the last question, handle submit logic here
-    submitQuiz();
+    console.log('Please select an answer before proceeding.');
+    document.querySelector('#nextButton').disabled = true;
+    alertify.set('notifier', 'position', 'top-right');
+    alertify.error('Kindly provide an answer');
   }
 }
 
 function submitQuiz() {
   // Collect user answers and handle submission logic here
-
+  document.querySelector('.loader-container').style.display = 'flex';
   const questions = document.querySelectorAll('.question-container');
   questions.forEach((question) => {
     const questionId = question.dataset.questionId;
@@ -56,11 +65,13 @@ function submitQuiz() {
     throw new Error('Network response was not ok.');
   })
   .then(data => {
+    document.querySelector('.loader-container').style.display = 'none';
     // Handle response from the server
     window.location.href = `/result-practice/${practiceModeInstanceId}/`;
   })
   .catch(error => {
     console.error('Error submitting answers:', error);
+    document.querySelector('.loader-container').style.display = 'none';
   });
 
   // Display submission message to the user

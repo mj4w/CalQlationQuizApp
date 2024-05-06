@@ -30,10 +30,10 @@ import json
 #             user = form.save()
 #             login(request,user)
 #             return redirect('login')
-        
+
 #     else:
 #         form = RegisterForm()
-        
+
 #     return render(request,'accounts/register.html',{'form':form})
 
 # def login_view(request):
@@ -52,7 +52,7 @@ import json
 #                     return redirect('home')
 #     else:
 #         form = LoginForm()
-        
+
 #     return render(request,'accounts/login.html',{'form':form})
 @csrf_exempt
 def home(request):
@@ -62,7 +62,7 @@ def home(request):
                 form_register = RegisterForm(request.POST or None)
                 if form_register.is_valid():
                     user = form_register.save()
-                    login(request, user)
+                    # login(request, user)
                     messages.success(request, 'You have been registered! Login Now!')
                     return redirect('home')
                 else:
@@ -73,14 +73,19 @@ def home(request):
             messages.error(request, f'CSRF Verification Failed: {str(e)}')
             return redirect('home')
     elif "login" in request.POST:
-        try: 
+        try:
             if request.method == 'POST':
                 form_login = LoginForm(request.POST or None, data=request.POST)
                 if form_login.is_valid():
-                    user = authenticate(request, username=form_login.cleaned_data['username'], password=form_login.cleaned_data['password'])
+                    username=form_login.cleaned_data['username']
+                    password=form_login.cleaned_data['password']
+                    user = authenticate(request, username=username, password=password)
                     if user is not None:
                         login(request, user)
                         if 'bulsu.edu.ph' in user.email and any(char.isdigit() for char in user.email):
+                            if not username.isdigit() or len(username) > 10:
+                                messages.error(request,'Login Error: Student ID must be a maximum of 10 digits.')
+                                return redirect('home')
                             messages.success(request,'You have successfully logged in as Student')
                             request.session['user_type'] = 'student'
                             return redirect('student-home')
@@ -131,11 +136,11 @@ def student_solo(request):
                 difficulty=form.cleaned_data['difficulty'],
                 num_questions=form.cleaned_data['num_questions']
             )
-            
+
             # Associate questions based on the selected topic and difficulty
             questions = SoloQuestion.objects.filter(
                 difficulty=form.cleaned_data['difficulty'])[:form.cleaned_data['num_questions']]
-            
+
             practice_mode_instance.save()
             practice_mode_instance.questions.set(questions)
             form = request.POST.get('change_form')
@@ -156,11 +161,11 @@ def student_group(request):
                 topic=form.cleaned_data['topic'],
                 num_questions=form.cleaned_data['num_questions']
             )
-            
+
             # Associate questions based on the selected topic and difficulty
             questions = Question.objects.filter(
                 topic=form.cleaned_data['topic'])[:form.cleaned_data['num_questions']]
-            
+
             practice_mode_instance.save()
             practice_mode_instance.questions.set(questions)
             form = request.POST.get('change_form')
@@ -169,7 +174,7 @@ def student_group(request):
             return redirect('practice-group', practice_mode_instance_id=practice_mode_instance.id)
     else:
         form = PracticeModeForm()
-        
+
     return render(request,'practiceMode/student_group.html', {'form': form})
 
 
@@ -200,7 +205,7 @@ def submit_solo_answers(request):
                 user_answer_key = f'{question.id}'
                 user_answer = user_answers_values.get(user_answer_key, '')
 
-                if user_answer == question.answer:  
+                if user_answer == question.answer:
                     score += 1
 
                 # Save the result
@@ -227,7 +232,7 @@ def practice_question_solo(request, practice_mode_instance_id):
     practice_mode_instance = SoloPracticeMode.objects.get(id=practice_mode_instance_id)
     questions = list(practice_mode_instance.questions.all())
     random.shuffle(questions)
-    
+
     if request.method == 'POST':
         score = 0
         for question in questions:
@@ -239,7 +244,7 @@ def practice_question_solo(request, practice_mode_instance_id):
                 score += 1
             result_p = SoloResultPractice.objects.create(
                 user = request.user,
-                topic_show = practice_mode_instance, 
+                topic_show = practice_mode_instance,
                 num_question_show=practice_mode_instance.num_questions,
                 question = question,
                 score = 1 if user_answer == question.answer else 0,
@@ -273,20 +278,20 @@ def solo_result(request, practice_mode_instance_id):
             'solution':question.solution_here,
             'user_answer':latest_result.user_answer,
             'correct_answer':latest_result.question.answer
-            
+
         }
         total_score += latest_result.score
         results_details.append(result_details)
         print(result_details['solution'])
-   
-    return render(request, 'results/solo_result.html', {'results_details': results_details, 'total_score': total_score})
+    total_question = latest_result.num_question_show
+    return render(request, 'results/solo_result.html', {'results_details': results_details, 'total_score': total_score,'total_question':total_question})
 
 
 @csrf_exempt
 @login_required(login_url='home')
 def practice_question_group_default(request, practice_mode_instance_id):
     practice_mode_instance = PracticeMode.objects.get(id=practice_mode_instance_id)
-    time_limit = practice_mode_instance.num_questions * 30
+    time_limit = practice_mode_instance.num_questions * 300
     questions = list(practice_mode_instance.questions.all())
     players = ResultPractice.objects.filter(topic_show=practice_mode_instance).values('user__email').distinct()
     random.shuffle(questions)
@@ -315,7 +320,7 @@ def submit_group_answers(request):
                 user_answer_key = f'{question.id}'
                 user_answer = user_answers_values.get(user_answer_key, '')
 
-                if user_answer == question.answer:  
+                if user_answer == question.answer:
                     score += 1
 
                 # Save the result
@@ -394,11 +399,11 @@ def resultP(request, practice_mode_instance_id):
             'solution':question.solution_here,
             'user_answer':latest_result.user_answer,
             'correct_answer':latest_result.question.answer
-            
+
         }
         total_score += latest_result.score
         results_details.append(result_details)
-    
+
     # all participants
     today = timezone.now().date()
     result_group = (
@@ -408,7 +413,8 @@ def resultP(request, practice_mode_instance_id):
         .annotate(total_score=Sum('score'))
         .order_by('-total_score')
     )
-    return render(request, 'results/result_practice.html', {'results_details': results_details, 'total_score': total_score,'result_group': result_group})
+    total_question = latest_result.num_question_show
+    return render(request, 'results/result_practice.html', {'results_details': results_details, 'total_score': total_score,'result_group': result_group, 'total_question':total_question})
 
 
 # prof side
@@ -424,7 +430,8 @@ def create_quiz(request):
         show_solution = request.POST.get('show_solution')
         question_timer = request.POST.get('question_timer')
         section = request.POST.get('section')
-        
+        end_date = request.POST.get('end_date')
+
         save_quiz_setting = QuizSetting.objects.create(
             user=user,
             select_data=date,
@@ -436,9 +443,9 @@ def create_quiz(request):
             section = section,
         )
         save_quiz_setting.save()
-        
+
         return redirect('actual-quiz', id=save_quiz_setting.id)
-    
+
     return render(request, 'profPage/create_quiz.html')
 
 @csrf_exempt
@@ -493,7 +500,7 @@ def quiz_form_prof(request, id):
         timezone.get_current_timezone()
     )
     quiz_end_datetime = timezone.make_aware(
-        datetime.combine(quiz_setting.select_data, quiz_setting.end_time),
+        datetime.combine(quiz_setting.end_date, quiz_setting.end_time),
         timezone.get_current_timezone()
     )
     current_time_formatted = current_datetime.strftime('%Y-%m-%d %I:%M:%S %p')
@@ -555,7 +562,7 @@ def link_actual_quiz(request, id):
         timezone.get_current_timezone()
     )
     quiz_end_datetime = timezone.make_aware(
-        datetime.combine(quiz_setting.select_data, quiz_setting.end_time),
+        datetime.combine(quiz_setting.end_date, quiz_setting.end_time),
         timezone.get_current_timezone()
     )
 
@@ -593,8 +600,8 @@ def link_actual_quiz(request, id):
         return render(request, 'profPage/link_actual_quiz.html', {'quiz_setting': quiz_setting, 'answers': answers, 'time_limit': time_limit})
     else:
         return redirect('quiz-not-available', id=id)
- 
-@login_required(login_url='home')   
+
+@login_required(login_url='home')
 def result_actual_quiz(request,id):
     quiz_setting = QuizSetting.objects.get(pk=id)
     questions = ActualQuiz.objects.filter(resultactual__user=request.user,resultactual__quiz_setting=quiz_setting).distinct()
@@ -609,7 +616,7 @@ def result_actual_quiz(request,id):
             ).latest('id')
         except ResultActual.DoesNotExist:
             continue
-        
+
         result_details = {
             'add_text': question.add_text,
             'add_equation':question.add_equation,
@@ -617,7 +624,7 @@ def result_actual_quiz(request,id):
             'score': latest_result.score,
             'user_answer':latest_result.user_answer,
             'correct_answer':latest_result.question.answer,
-            
+
         }
         total_score += latest_result.score
         results_details.append(result_details)

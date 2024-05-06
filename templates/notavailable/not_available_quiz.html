@@ -16,7 +16,7 @@
       border-radius: 10px;
       width: 100%;
     }
-    
+
     .closebtn {
       margin-left: 15px;
       color: white;
@@ -25,7 +25,7 @@
       cursor: pointer;
       transition: 0.3s;
     }
-    
+
     .closebtn:hover {
       color: black;
     }
@@ -34,11 +34,12 @@
     <div class="container">
         <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            <p style="color: rgb(255, 255, 255);"><strong>Note! </strong>Refresh the page if Quiz Started!</p> 
+            <p style="color: rgb(255, 255, 255);"><strong>Note! </strong>Refresh the page if Quiz Started!</p>
 
         </div>
         <p class="message">Quiz are not Available.</p>
-        <p style="font-size: 20px; padding:0; margin:0; color:white;">Date: {{quiz_setting.select_data}}</p>
+        <p style="font-size: 20px; padding:0; margin:0; color:white;">Start Date: {{quiz_setting.select_data}}</p>
+        <p style="font-size: 20px; padding:0; margin:0; color:white;">End Date: {{quiz_setting.end_date}}</p>
         <p style="font-size: 20px; padding:0; margin:0; color:white;">Time: {{quiz_setting.start_time}} - {{quiz_setting.end_time}}</p>
         <p style="font-size: 20px; padding:0; margin:0; color:white;">Section: {{quiz_setting.section}}</p>
     </div>

@@ -9,7 +9,7 @@ body {
     margin: 0;
     padding: 0;
   }
-  
+
   #quiz-container {
     max-width: 600px;
     margin: 50px auto;
@@ -19,14 +19,14 @@ body {
     transition: opacity 1s ease-in-out;
     text-align: center;
   }
-  
+
   .question-container {
     margin-bottom: 20px;
     opacity: 100%;
     transition: opacity 1s ease-in-out;
     background: transparent;
   }
-  
+
   .question {
     position: relative;
     text-align: center;
@@ -46,11 +46,11 @@ body {
     backdrop-filter: blur(10px);
     font-size: 30px; /* Adjust this value as needed */
   }
-  
+
   .choices {
     margin-top: 10px;
   }
-  
+
   .choices input[type="radio"] {
     display: none;
   }
@@ -77,8 +77,8 @@ body {
     background-color: #023e8a;
     color: #fff;
   }
-  
-  
+
+
   button {
     font-family: 'Nova Square', sans-serif;
     padding: 20px;
@@ -91,7 +91,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-  
+
   button:hover {
     background-color: #2980b9;
 
@@ -104,7 +104,7 @@ body {
   position: fixed;
   top: 0;
   left: 50%; /* Move to the center horizontally */
-  transform: translateX(-50%); 
+  transform: translateX(-50%);
   width: 100%;
   padding: 10px 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -116,7 +116,7 @@ body {
   background-color: #ff002b;
   width: 100%;
   transition: width 1s linear;
-} 
+}
 
 .math-equation input {
   display: block;
@@ -178,25 +178,25 @@ body {
     width: 94%;
     height: auto;
     font-size: 15px;
-    padding: 10px; 
+    padding: 10px;
   }
 
   .math-equation input {
     width: 103%;
     height: auto;
     font-size: 10px;
-    padding: 10px; 
+    padding: 10px;
   }
 
   .photo-container {
-    width: 92%; 
+    width: 92%;
     height: auto;
     font-size: 15px;
-    padding: 10px; 
+    padding: 10px;
   }
 
   .photo-container img {
-    width: 150px; 
+    width: 150px;
     margin-top: 10px;
   }
 
@@ -225,11 +225,38 @@ body {
   overflow: hidden;
   padding: 10px 20px;
   backdrop-filter: blur(10px);
-  font-size: 20px; 
+  font-size: 20px;
 }
 
 .hint img {
   width: 80px;
   height: auto;
   cursor: pointer;
+}
+
+.link-box {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative; /* Added for positioning the icon link */
+  width: 100px;
+  height: 50px;
+  background-color: #3498db;
+  text-align: center;
+  line-height: 50px; /* Adjusted line-height to match height */
+  border-radius: 30px;
+}
+
+.icon-link {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.link-box:after {
+  content: "";
+  display: table;
+  clear: both;
 }

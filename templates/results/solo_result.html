@@ -14,7 +14,7 @@
 <style>
     .leaderboard {
         width: 100%;
-        overflow-x: auto; 
+        overflow-x: auto;
     }
 
     .leaderboard-entry {
@@ -56,7 +56,7 @@
     }
 </style>
 <div id="score-container">
-    <p>Your final score is: <span id="score">{{ total_score }} </span></p>
+    <p>Your final score is: <span id="score">{{ total_score }} / {{ total_question }} </span></p>
     <!-- <p style="text-align: right;"><a href="{% url 'student-home' %}" style="color: #fff; background-color:green;text-decoration:none; padding: 10px 15px; border-radius:10px;">Go Back</a></p> -->
     <img src="{% static 'img/trophy.png' %}" alt="Trophy" id="trophy">
     <p id="congratulations">Congratulations! You've completed the quiz!</p>
@@ -116,7 +116,7 @@
             <div class="leaderboard-entry">
                 <span class="entry-data"><strong>{{forloop.counter}}</strong></span>
                 <span class="entry-data mathlive">{{result_detail.question_text}} {{result_detail.question_formula}}</span>
-                {% if result_detail.solution %}    
+                {% if result_detail.solution %}
                     <span class="entry-data"><a href="{{ result_detail.solution.url }}" target="_blank"><img id="myImg" src="{{ result_detail.solution.url }}" alt="{{result_detail.question_text}} {{result_detail.question_formula}}"/></a></span>
 
                 {% else %}
@@ -138,30 +138,30 @@
     function openModal(modalId) {
         document.getElementById(modalId).style.display = "block";
     }
-    
+
     // Function to close a modal
     function closeModal(modalId) {
         document.getElementById(modalId).style.display = "none";
     }
-    
+
     // Close modal if user clicks outside the modal content
     window.onclick = function (event) {
         if (event.target.classList.contains('modal')) {
         event.target.style.display = "none";
         }
     };
-    
+
 </script>
 <script type="module">
     import { convertLatexToMarkup }
         from 'https://unpkg.com/mathlive/dist/mathlive.min.mjs';
-    
+
     function  replaceSpaces(input) {
         if (input == null) return "";
         var output = input.toString().replace(/ /g,"\\; ");
         return "$$" + output + "$$";
     }
-    
+
     var elements = document.getElementsByClassName("mathlive");
     for (let i = 0; i < elements.length; i++) {
         var el = elements[i];

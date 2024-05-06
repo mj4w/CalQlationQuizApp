@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="{% static 'css/question/question.css' %}">
   <link rel="icon" href="{% static 'img/logo.png' %}">
   <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive-static.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive-static.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+  <!-- Default theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 </head>
 <body>
 
@@ -17,6 +23,9 @@
     {% csrf_token %}
     <div id="timer">
       <div id="timer-bar"></div>
+    </div>
+    <div class="" style="align-items: center; justify-content:center; display:flex; margin-top:30px;">
+      <a id="quiz-link" href="" class="icon-link link-box"><i class="fa-solid fa-link">Link</i></a>
     </div>
     {% for question in shuffled_questions %}
     <div class="question-container" id="question{{ question.id }}">
@@ -35,9 +44,9 @@
           {% autoescape off %}
           <div class="mathlive">
             <p>{{ question.question_formula }}</p>
-         
+
           </div>
-          
+
           {% endautoescape %}
         </div>
         <div class="choices">
@@ -127,7 +136,34 @@
     }
   }
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      var linkElement = document.getElementById('quiz-link');
+      linkElement.addEventListener('click', function (event) {
+          event.preventDefault();  // Prevent the default link behavior
+          copyToClipboard(linkElement);
+      });
+  });
 
+  function copyToClipboard(linkElement) {
+      var tempInput = document.createElement('input');
+      tempInput.value = linkElement.href;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      // Update the link box content
+      linkElement.innerHTML = 'Copied! Good luck!';
+
+      // Hide the button immediately after copying
+      linkElement.style.display = 'none';
+      // Show Alertify notification
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success('Link copied to clipboard!');
+  }
+</script>
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 </body>
 </html>
 
@@ -160,11 +196,11 @@
         </li>
       </ul>
       <br>
-  
+
     {% endfor %}
-  
+
     <button type="submit">Submit Answer</button>
   </form>
 {% else %}
   <p>No questions available for the selected criteria.</p>
-{% endif %} --> 
+{% endif %} -->

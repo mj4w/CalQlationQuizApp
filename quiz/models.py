@@ -7,17 +7,17 @@ from django.utils import timezone
 class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(_('username'), max_length=150, unique=True, blank=True,null=True)
-    
-    
+
+
     def __str__(self):
         return self.email
-    
+
     def save(self, *args, **kwargs):
         if not self.username:
-            self.username = None 
+            self.username = None
         super().save(*args, **kwargs)
 
-    
+
 class Question(models.Model):
     TOPIC_CHOICES = [
         ('Limits','Limits'),
@@ -42,10 +42,10 @@ class Question(models.Model):
 
     def __str__(self):
         return f'{self.id} Topic: {self.topic},Question: {self.question_text}'
-    
+
 class PracticeMode(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    topic = models.CharField(max_length=100) 
+    topic = models.CharField(max_length=100)
     num_questions = models.IntegerField(default=0)
 
     questions = models.ManyToManyField(Question)
@@ -54,14 +54,14 @@ class PracticeMode(models.Model):
         return f'{self.user.email} - Topic: {self.topic}, Num Questions: {self.num_questions}'
 
 class ResultPractice(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE) 
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     date = models.DateField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     topic_show = models.ForeignKey(PracticeMode, on_delete=models.CASCADE)
     num_question_show = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
-    user_answer = models.CharField(max_length=100, null=False) 
-    
+    user_answer = models.CharField(max_length=100, null=False)
+
     def __str__(self):
         return f'{self.user} Score: {self.score} show questions {self.num_question_show}'
     def save(self, *args, **kwargs):
@@ -69,8 +69,8 @@ class ResultPractice(models.Model):
         if not self.date:
             self.date = timezone.now().date()
         super().save(*args, **kwargs)
-        
-        
+
+
 # solo practice
 class SoloQuestion(models.Model):
     DIFFICULTY_CHOICES = [
@@ -90,7 +90,7 @@ class SoloQuestion(models.Model):
 
     def __str__(self):
         return f'{self.pk}: Difficulty: {self.difficulty}, Question: {self.question_text} {self.question_formula}'
-    
+
 class SoloPracticeMode(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     difficulty = models.CharField(max_length=10)
@@ -101,37 +101,38 @@ class SoloPracticeMode(models.Model):
         return f'{self.user.username}, Difficulty: {self.difficulty}, Num Questions: {self.num_questions}'
 
 class SoloResultPractice(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE) 
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     topic_show = models.ForeignKey(SoloPracticeMode, on_delete=models.CASCADE, blank=True, null=True)
     question = models.ForeignKey(SoloQuestion, on_delete=models.CASCADE)
     num_question_show = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
-    user_answer = models.CharField(max_length=100, null=False) 
-    
+    user_answer = models.CharField(max_length=100, null=False)
+
     def __str__(self):
         return f'{self.user} Score: {self.score} show questions {self.num_question_show}'
 
 # prof side
 class QuizSetting(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    
+
     select_data = models.DateField(_('Select Date'))
     start_time = models.TimeField(_('Start Time'))
     end_time = models.TimeField(_('End Time'))
     section = models.CharField(_('Section'), max_length=255, null=True, blank=True)
+    end_date = models.DateField(_('End Date'), blank = True, null=True)
     show_correct_answer = models.CharField(_('Show Answer'), max_length=255, blank=True, null=True)
-    show_solution = models.CharField(_('Show Solution'), max_length=255, blank=True, null=True)  
+    show_solution = models.CharField(_('Show Solution'), max_length=255, blank=True, null=True)
     question_timer = models.IntegerField(_('Question Timer'), default=10)
-    
+
     def formatted_start_time(self):
         return self.start_time.strftime('%I:%M %p')
-    
+
     def formatted_end_time(self):
         return self.end_time.strftime('%I:%M %p')
-    
+
     def __str__(self):
         return f"{self.id} - {self.section} - {self.formatted_start_time()} to {self.formatted_end_time()}"
-    
+
 class ActualQuiz(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quiz_setting = models.ForeignKey(QuizSetting, on_delete=models.CASCADE,blank=True, null=True)
@@ -143,17 +144,17 @@ class ActualQuiz(models.Model):
     option_b = models.TextField(null=True, blank=True)
     option_c = models.TextField(null=True, blank=True)
     answer = models.CharField(max_length=100, null=True, blank=True)
-    
+
     def __str__(self):
         return f"{self.add_text}"
-    
+
 class ResultActual(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE) 
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     quiz_setting = models.ForeignKey(QuizSetting,on_delete =models.CASCADE,blank=True, null=True)
     question = models.ForeignKey(ActualQuiz, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
-    user_answer = models.CharField(max_length=100, null=False) 
+    user_answer = models.CharField(max_length=100, null=False)
     time_finished = models.DateTimeField(default=timezone.now)
-    
+
     def __str__(self):
         return f'{self.user} Score: {self.score} Question: {self.question}'
