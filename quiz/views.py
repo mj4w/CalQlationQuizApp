@@ -97,7 +97,8 @@ def home(request):
                     if user is not None:
                         login(request, user)
                         if 'bulsu.edu.ph' in user.email and any(char.isdigit() for char in user.email):
-                            if username.isdigit() or len(username) >= 10:
+                            numeric_part = ''.join(char for char in user.email if char.isdigit())
+                            if len(numeric_part) > 10:
                                 messages.error(request,'Login Error: Student ID must be a maximum of 10 digits.')
                                 return redirect('home')
                             messages.success(request,'You have successfully logged in as Student')
@@ -455,6 +456,7 @@ def create_quiz(request):
             show_solution=show_solution,
             question_timer=question_timer,
             section = section,
+            end_date = end_date
         )
         save_quiz_setting.save()
 
@@ -689,7 +691,7 @@ def not_available(request,id):
         timezone.get_current_timezone()
     )
     quiz_end_datetime = timezone.make_aware(
-        datetime.combine(quiz_setting.select_data, quiz_setting.end_time),
+        datetime.combine(quiz_setting.end_date, quiz_setting.end_time),
         timezone.get_current_timezone()
     )
     if quiz_start_datetime <= current_datetime <= quiz_end_datetime:
